@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Tablouri bidimensionale C++</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Sudo learn C++</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Acasa</a></li>
+						<li><a href="arrays.html" class="active">Matrice C++</a></li>
+						<li><a href="index.html#two">Lecții</a></li>
+                        <li><a href="index.html#three">Quiz</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Tablouri bidimensionale</h1>
+							<p>Am arătat că tablourile unidimensionale ne permit să grupăm mai multe variabile de același tip în una
+                                compusă și avem acces la variabilele componente prin numele variabilei compuse și printr-un singur indice
+                                care reprezintă poziția în cadrul tabloului. Tablourile bidimensionale (pe care le mai numim matrice) nu sunt
+                                altceva decât extinderea cu încă o dimensiune a conceptului prezentat.</p>
+                            <h3>Astfel, o declarație de forma:</h3>
+                            <blockquote><strong>tip nume [ dimensiune1 ][ dimensiune2 ];</strong></blockquote>
+                            <p>este cea prin care anunțăm că vrem să se aloce memorie pentru o matrice numită nume, cu elemente de tipul
+                                tip și care are dimensiunile indicate între parantezele drepte. Ca și la vectori, cele două dimensiuni trebuie să
+                                fie constante sau expresii constante (care se pot evalua încă de la compilare pentru a se cunoaște de la început
+                                necesarul de memorie de alocat).</p>
+                            <h3>Fie o declarație de forma</h3>
+                            <blockquote>int a [ 20 ][ 30 ];</blockquote>
+                            <p>Prin aceasta anunțăm că dorim alocarea unui tablou bidimensional cu dimensiunile <b>20</b> și <b>30</b>. Dar câte
+                                elemente de tip <b>int</b> are structura declarată ? Cum ne-o imaginăm atunci când lucrăm cu ea ?</p>
+                            <p>Ne amintim de la vectori că ne imaginam de obicei structura ca pe un șir cu indicii crescători de la stânga la
+                                dreapta. Acest lucru se datorează modului în care elementele apar pe ecran la o afișare obișnuită cu spații
+                                între ele (sau, dacă vreți, se datorează modului în care le vedem atunci când le scriem pe o foaie, unul după
+                                altul). Dar noi, în funcție de situație, ne putem imagina elementele vectorului dispuse și de la dreapta la stânga,
+                                și de sus în jos, și de jos în sus.
+                                </p>
+                            <p>În cazul matricelor ne imaginăm variabilele dispuse pe o suprafață dreptunghiulară cu <b>dimensiune1</b> linii și
+                                <b>dimensiune2</b> coloane. Deducem deci că numărul de elemente este <b>dimensiune1 ∙ dimensiune2</b>.
+                                </p>
+                            <p>Așadar, în exemplul de mai sus avem <b>20∙30 = 600</b> variabile de tip int. Pe acestea ni le imaginăm de
+                                obicei ca pe o zonă dreptunghiulară formată din <b>20 de linii și 30 de coloane</b>. Acest mod de a lucra cu ele vom
+                                vedea că se datorează tot felului în care le vedem la o afișare standard pe ecran. Dar și aici, în funcție de
+                                situația reală pe care o modelăm, putem să ne imaginăm și altfel suprafața.
+                                </p>
+                            <p>Așadar, de exemplu pentru matricea a declarată mai sus, avem:</p>
+                            <h3>Alternate</h3>
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th></th>
+                                                    <th>Coloana 0</th>
+													<th>Coloana 1</th>
+													<th>Coloana 2</th>
+													<th>Coloana 3</th>
+													<th>......</th>
+                                                    <th>Coloana 29</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Linia 0</td>
+													
+													<td>a [ 0 ] [ 0 ]</td>
+                                                    <td>a [ 0 ] [ 1 ]</td>
+                                                    <td>a [ 0 ] [ 2 ]</td>
+                                                    <td>a [ 0 ] [ 3 ]</td>
+                                                    <td>...</td>
+                                                    <td>a [ 0 ] [ 29 ]</td>
+												</tr>
+												<tr>
+													<td>Linia 1</td>
+													
+													<td>a [ 1 ] [ 0 ]</td>
+                                                    <td>a [ 1 ] [ 1 ]</td>
+                                                    <td>a [ 1 ] [ 2 ]</td>
+                                                    <td>a [ 1 ] [ 3 ]</td>
+                                                    <td>...</td>
+                                                    <td>a [ 1 ] [ 29 ]</td>
+												</tr>
+												<tr>
+													<td>Linia 2</td>
+													
+													<td>a [ 2 ] [ 0 ]</td>
+                                                    <td>a [ 2 ] [ 1 ]</td>
+                                                    <td>a [ 2 ] [ 2 ]</td>
+                                                    <td>a [ 2 ] [ 3 ]</td>
+                                                    <td>...</td>
+                                                    <td>a [ 2 ] [ 29 ]</td>
+												</tr>
+                                                <tr>
+                                                    <td>Linia 3</td>
+													
+													<td>a [ 3 ] [ 0 ]</td>
+                                                    <td>a [ 3 ] [ 1 ]</td>
+                                                    <td>a [ 3 ] [ 2 ]</td>
+                                                    <td>a [ 3 ] [ 3 ]</td>
+                                                    <td>...</td>
+                                                    <td>a [ 3 ] [ 29 ]</td>
+                                                </tr>
+												<tr>
+													<td>....</td>
+													<td>....</td>
+													<td>....</td>
+                                                    <td>....</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+												</tr>
+												<tr>
+													<td>Linia 19</td>
+													
+													<td>a [ 19 ] [ 0 ]</td>
+                                                    <td>a [ 19 ] [ 1 ]</td>
+                                                    <td>a [ 19 ] [ 2 ]</td>
+                                                    <td>a [ 19 ] [ 3 ]</td>
+                                                    <td>...</td>
+                                                    <td>a [ 19 ] [ 29 ]</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+                                    <div class="col-6 col-12-medium">
+                                        <h3>Observații</h3>
+                                        <ul>
+                                            <li>Pe principiul de la vectori, accesarea unui element se face cu o construcție de forma
+                                                <b>a [ indice1 ][ indice2 ]</b>. Cei doi indici sunt expresii (nu neapărat constante) care la executare
+                                                indică spre un singur element din matrice, acesta fiind o variabilă simplă de tip <b>int</b> în exemplul de
+                                                față.
+                                                </li>
+                                            <li>La modul descris mai sus de a ne imagina lucrurile, primul indice înseamnă linie și al doilea reprezintă
+                                                coloana.
+                                                </li>
+                                            <li>Ca și la vectori, și după cum se observă din tabelul de mai sus, indexarea se face de la <b>0</b> pentru
+                                                ambele dimensiuni. Deci matricea declarată mai sus are indici de la <b>0 la 19</b> pentru linii și de la <b>0 la 29</b>
+                                                pentru coloane.
+                                                </li>
+                                            <li>Ca și în cazul vectorilor, nu se folosește la fiecare rulare a programului în mod obligatoriu toată zona
+                                                declarată (și alocată), ci se folosesc dimensiuni logice care se citesc în program (să le spunem noi n și
+                                                m). De asemenea, cel puțin pentru început, vom folosi elementele începând cu poziția 1.
+                                                </li>
+                                            <li>Declararea de mai sus, din punct de vedere al spațiului de memorie alocat este echivalentă cu <b> int
+                                                b[600]</b>. Posibilitatea de a declara tablouri bidimensionale trebuie privită ca o facilitate pe care
+                                                limbajul o pune la dispoziția noastră pentru a ne fi mai ușor să organizăm datele când modelăm
+                                                suprafețe.
+                                                .</li>
+                                        </ul>
+                                    </div>
+                            <p>Se pune problema cum parcurgem un tablou bidimensional, altfel spus, cum avem acces la elementele sale pe
+                                rând. În cazul vectorilor parcurgerea se realizează cu o repetiție (for de obicei).</p>
+                            <p>La matrice ne gândim că fiecare linie este un vector, deci pentru a-l parcurge avem nevoie de un for. Totodată
+                                avem mai multe linii, adică mai mulți vectori și îi vom vizita pe fiecare dintre ei. Așadar ajungem la faptul că
+                                parcurgerea unei matrice o realizăm cu două foruri</p>
+                            <pre><code>for (line = 1; line <= numberLines; line++)
+for (column = 1; column <= numberColumns; column++)
+"use" a[line][column];</code></pre>
+                            <p>Am încercat să scriem codul de mai sus cât mai general, inclusiv ca denumiri ale identificatorilor. Totuși, cel
+                                puțin pentru început se folosesc prescurtări ale variabilelor, cel mai des întâlnim denumiri ca: <b>n – pentru
+                                numărul de linii, m – pentru numărul de coloane, i – pentru indicele de linie, j – pentru indicele de coloană</b></p>
+                            <p>Astfel, secvența de mai jos este una des folosită atunci când citim datele unei matrice:</p>
+                            <pre><code>cin>>n>>m;
+for (i = 1; i <= n; i++)
+    for (j = 1; j <= m; j++)
+        cin>> a[i][j];</code></pre>
+                            <p>Afișarea pe ecran a datelor dintr-o matrice are următorul efect: câte o linie a matricei pe câte o linie a
+                                ecranului și elementele aceleiași linii separate prin spații. Tipărirea se face pe schema parcurgerii prezentate
+                                mai sus, cu două foruri. Acolo este foloseste a[ linie ][ coloana ] este
+                                <b>cout << a [ line ][ column ];</b></p>
+                            <p>Lăsând exact așa codul nu se obține efectul dorit de noi întrucât elementele se afișează absolut toate unul
+                                după altul, fără ca odată cu linie nouă în matrice să se treacă la linie nouă pe ecran. Unii începători se grăbesc
+                                și înlocuiesc caracterul spațiu cu un caracter rând nou, dar nici așa nu obținem ceea ce ne dorim, de data asta
+                                absolut toate elementele apărând unul sub altul, deci fiecare pe câte un rând.</p>
+                            <p>Soluția, care este prezentată în codul de mai jos, este să păstrăm spațiu la tipărirea fiecărui element, dar când
+                                se schimbă linia să tipărim separat un caracter de rând nou. Astfel, la primul for vom avea acolade întrucât
+                                două lucruri sunt de făcut la linia pe care acesta o pune în evidență: tipărirea, cu spații între ele, a elementelor
+                                liniei și trecerea pe ecran la linia următoare.
+                                </p>
+                            <pre><code>cin>>n>>m;
+for (i = 1; i <= n; i++) {
+    for (j = 1; j <= m; j++)
+        cout << a[i][j] << “ ”;
+    cout << “\n”;
+}</code></pre>
+                            <p>Odată ce vom avansa în tainele progrmării ne vom lovi de nevoia de a sincroniza datele din memorie de ceea
+                                ce dorim să apară pe ecran. Ceea ce este mai sus poate fi privit și în acest mod.</p>
+                            <h2>Probleme rezolvate:</h2>
+                            <p>Ca și la alte capitole, aceste probeme trebuie privite și ca elemente teoretice noi, fiind cerințe clasice legate de
+                                matrice.
+                                </p>
+                            <h4>1. Operații uzuale ce necesită parcurgerea oarecare a unei matrice. Se citesc n, m apoi cele n∙m elemente
+                                întregi ale unei matrice. Să se afișeze pe ecran:</h4>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li><b>Suma elementelor matricei;</b></li>
+                                    <li><b>Numărul de elemente pare ale matricei;</b></li>
+                                    <li><b>Valorarea cea mai mare care se află pe o linie impară a matricei;</b></li>
+                                </ul>
+                            </div>
+                            <p>Exemplu:</p>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <thead>
+                                        <tr>
+                                            <th>Date de intrare</th>
+                                            <th>Date de ieșire</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><pre>4 4
+1 2 3 4
+1 0 1 0
+2 1 2 1
+9 8 7 6</pre></td>
+                                            <td><pre>Suma elementelor: 48
+Numărul de valori pare: 8
+Cea mai mare valoare de pe o linie impară: 4</pre></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Rezolvare:</p>
+                            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int a[1001][1001];
+int n, m, i, j, suma, cnt, maxim;
+int main () {
+cin >> n >> m;
+for (i = 1; i <= n; i++)
+    for (j = 1; j <= m; j++)
+        cin>>a[i][j];
+/// cerinta a
+suma = 0;
+for (i = 1; i <= n; i++)
+    for (j = 1; j <= m; j++)
+suma += a[i][j];
+cout << suma << "\n";
+/// cerinta b
+cnt = 0;
+for (i = 1; i <= n; i++)
+    for (j = 1; j <= m; j++)
+        if (a[i][j] % 2 == 0)
+            cnt ++;
+cout << cnt << "\n";
+/// cerinta c
+maxim = -1;
+for (i = 1; i <= n; i++)
+    for (j = 1; j <= m; j++)
+        if (i%2 == 1)
+if (a[i][j] > maxim)
+maxim = a[i][j];
+/**
+for (i = 1; i <= n; i += 2)
+    for (j = 1;j <= m; j++)
+        if (a[i][j] > maxim)
+            maxim = a[i][j];
+**/
+cout << maxim << "\n";
+return 0;
+}</code></pre>
+                            <p>Pentru cerința cu suma avem de realizat parcurgerea matricei și operația efectivă cu elementul curent este
+                                adunarea lui la sumă. La celelalte cerințe sunt de asemenea parcurgeri însoțite de operațiile specifice. Întrucât
+                                elementele care ne interesează sunt doar o parte din totalul din matrice, avem în fiecare caz câte un if.
+                                Observați diferența între testul de paritate e elementului <b>(a[ i ][ j ] % 2)</b> și cel de paritate a indicelui <b>(i % 2)</b>.</p>
+                            <p>La final, în comentarii, este o alternativă de rezolvare a ultimei cerințe. Mergând cu indicele de linie din doi în
+                                doi traversăm doar liniile care ne interesează (cele impare), nemaifiind necesar testul de paritate pentru linie.
+                                Aceasta este și o soluție mai bună ca timp întrucât se vizitează doar elementele care interesează din matrice</p>
+                            <h4>2. Parcurgerea matricei linie cu linie. Se citesc n, m apoi cele n∙m elemente întregi ale unei matrice cu n
+                                linii și m coloane. Să se afișeze suma elementelor de pe fiecare linie. Aceste valori se vor afișa pe o
+                                singură linie a ecranului, separate prin spațiu </h4>
+                            <p>Exemplu:</p>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <thead>
+                                        <tr>
+                                            <th>Date de intrare</th>
+                                            <th>Date de ieșire</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><pre>3 4
+5 5 10 5
+3 9 1 2
+4 10 1 2</pre></td>
+                                            <td><pre>25 15 17
+                                            </pre></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Rezolvare:</p>
+                            <p>Varianta 1:</p>
+                            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int a[101][101], s;
+int n, m, i, j;
+int main(){
+cin >> n >> m;
+for (i = 1;i <= n; i++)
+    for (j = 1; j <= m;j++)
+        cin >> a[i][j];
+for (i = 1; i <= n; i++) {
+    s = 0;
+    for (j = 1; j <= m; j++)
+        s += a[i][j];
+    cout << s << " ";
+}
+return 0;
+}</code></pre>
+                        <p>Varianta 2:</p>
+                        <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int a[101][101], s[101];
+int n, m, i, j;
+int main(){
+cin >> n >> m;
+for (i = 1; i <= n; i++)
+    for (j = 1; j <= m; j++)
+        cin >> a[i][j];
+for (i = 1;i <= n; i++)
+    for (j = 1; j <= m; j++)
+        s[i] += a[i][j];
+for (i = 1;i <= n;i++)
+    cout << s[i] << " ";
+return 0;
+}</code></pre>
+                        <p>La varianta 1 traversăm matricea linie cu linie și înainte de a analia o linie ne-o imaginăm ca pe un vector,
+                            calculându-i suma. Folosim de fiecare dată aceeași variabilă și este necesar ca înaintea fiecărei linii să o
+                            inițializăm și imediat după parcurgerea liniei să facem afișarea. La varianta 2 am folosit un vector auxiliar,
+                            astfel, <b>s[ i ]</b> este suma elementelor de pe linia <b> i </b>. În acest fel nu trebuie să ne facem griji de afișare în timpul
+                            parcurgerii matricei întrucât datele rămân în vector și ulterior putem realiza cu ele operațiile dorite.</p>
+                        <p>Am numit această problemă <i> parcurgerea matricei linie cu linie </i> întrucât la traversarea elementelor matricei
+                            vizităm mai întâi linia 1 în întregime, apoi linia 2 în întregime ... Aceasta este de fapt parcurgerea clasică pe
+                            care am prezentat-o la început.</p>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<!-- <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

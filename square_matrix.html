@@ -1,0 +1,599 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>C++ MAtrici</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Sudo learn C++</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Acasă</a></li>
+						<li><a href="arrays.html" class="active">C++ Char</a></li>
+						<li><a href="index.html#two">Lecții</a></li>
+                        <li><a href="index.html#three">Quiz</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Matrici pătratice</h1>
+							<p>Dacă pentru un tablou bidimensional, la o anumită rulare a programului, folosim și pentru numărul de linii și
+                                pentru numărul de coloane aceeași valoare, acesta se numește pătratic (matrice pătratică). În acest material
+                                vom studia diverse particularități care apar la astfel de tablouri. În fond, tot ce am discutat la prezentarea
+                                generală a matricelor este valabil, dar aici apar câteva lucruri noi. În tabelul de mai jos, pentru o matrice
+                                pătratică de dimensiune 7 (7 linii și 7 coloane) cu liniile și coloanele indexate de la 1, am notat doar indicii
+                                elementelor.
+                                </p>
+                                <div class="table-wrapper">
+                                    <table class="alt">
+                                        <tbody>
+                                            <tr>
+                                                <td><b>1 , 1</b></td>
+                                                <td>1 , 2</td>
+                                                <td>1 , 3</td>
+                                                <td>1 , 4</td>
+                                                <td>1 , 5</td>
+                                                <td>1 , 6</td>
+                                                <td>1 , 7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2 , 1</td>
+                                                <td><b>2 , 2</b></td>
+                                                <td>2 , 3</td>
+                                                <td>2 , 4</td>
+                                                <td>2 , 5</td>
+                                                <td>2 , 6</td>
+                                                <td>2 , 7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3 , 1</td>
+                                                <td>3 , 2</td>
+                                                <td><b>3 , 3</b></td>
+                                                <td>3 , 4</td>
+                                                <td>3 , 5</td>
+                                                <td>3 , 6</td>
+                                                <td>3 , 7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4 , 1</td>
+                                                <td>4 , 2</td>
+                                                <td>4 , 3</td>
+                                                <td><b>4 , 4</b></td>
+                                                <td>4 , 5</td>
+                                                <td>4 , 6</td>
+                                                <td>4 , 7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5 , 1</td>
+                                                <td>5 , 2</td>
+                                                <td>5 , 3</td>
+                                                <td>5 , 4</td>
+                                                <td><b>5 , 5</b></td>
+                                                <td>5 , 6</td>
+                                                <td>5 , 7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6 , 1</td>
+                                                <td>6 , 2</td>
+                                                <td>6 , 3</td>
+                                                <td>6 , 4</td>
+                                                <td>6 , 5</td>
+                                                <td><b>6 , 6</b></td>
+                                                <td>6 , 7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>7 , 1</td>
+                                                <td>7 , 2</td>
+                                                <td>7 , 3</td>
+                                                <td>7 , 4</td>
+                                                <td>7 , 5</td>
+                                                <td>7 , 6</td>
+                                                <td><b>7 , 7</b></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <p>Discuția din acest material se dezvoltă în jurul faptului că, așa cum am subliniat și în figură, dacă se pleacă
+                                dintr-un colț și se avansează în diagonală, se ajunge exact în colțul opus (evident că acest lucru este valabil
+                                doar pentru că matricea este pătratică).
+                                </p>
+                            <p>Ceea ce este hașurat mai sus se cheamă <b>diagonala principală</b>. Dacă se pleacă din colțul dreapta al liniei de sus
+                                (1,7) și se avansează în diagonală, se va ajunge în colțul stânga jos (7,1). Zona astfel parcursă se cheamă
+                                <b>diagonala secundară</b>.</p>
+                            <h3>Diagonala principală și zonele delimitate de ea</h3> <br>
+                            <p>Ne vom ocupa de vizitarea elementelor din anumite zone formate. Cu elementele traversate putem realiza
+                                diverse operații dintre cele clasice (sume, produse, numărări, maxime, minime, verificări etc) dar în exemplele
+                                următoare noi vom realiza, pentru simplitate, suma.</p>
+                            <h4>Parcurgerea elementelor de pe diagonala principală</h4> <br>
+                            <p>Observăm că elementele de pe diagonala principală au indicele de linie și cel de coloană egali. Doar ele sunt
+                                elementele din matrice cu indicii egali. Așadar o primă soluție este de a traversa toată matricea și, cu un if,
+                                selectăm doar elementele cu această proprietate.</p>
+                            <pre><code>for (i = 1;i <= n; i++)
+    for (j = 1;j <= n; j++)
+        if (i == j)
+          sum += a[i][j];</code></pre>
+                            <p>Observăm că atât pentru linii cât și pentru coloane se merge cu indicii până la n (am considerat o matrice
+                                pătratică de dimensiune n, așa cum vom considera și în exemplele următoare).</p>
+                            <p>Iată și o altă variantă de a însuma elementele de pe diagonala principală:</p>
+                            <pre><code>for (i = 1;i <= n; i++)
+    sum += a[i][i];</code></pre>
+                            <p>Codul de mai sus este de asemenea corect, este mai scurt și este mai eficient (avem timp de ordin n spre
+                                deosebire de prima variantă unde timpul de executare este de ordin n <sup>2</sup>
+                                ). Cum am gândit pentru a ajunge la el?</p>
+                            <p>Ne-am imaginat contorul de la for ca fiind linia pe care dorim să o vizităm și observăm că pe linia curentă
+                                este un singur element care ne interesează și că indicele de coloană are aceeași valoare cu acela de linie, fixat
+                                prin for.</p>
+                            <p>O idee general valabilă este următoarea: dacă zona de traversat este liniară (o anume linie a matricei, o
+                                anume coloană a matricei, o anume diagonală etc) atunci vizitarea se poate face cu o singură structură
+                                repetitivă; dacă zona de traversat este ca o suprafață (matricea în sine sau o anume parte a sa dispusă pe
+                                mai multe linii și mai multe coloane), atunci vizitarea elementelor sale trebuie făcută cu două foruri, unul cu
+                                care indicăm linia pe care ne aflăm și celălalt pentru vizitarea elementelor de pe linia fixată.
+                                </b>.</p>
+                            <p>Vom vedea mai bine cele de mai sus în secțiunile următoare.</p>
+                            <h3>Parcurgerea elementelor din triunghiul delimitat de diagonala principală, aflate sub ea</h3>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td>1 , 1</td>
+                                            <td>1 , 2</td>
+                                            <td>1 , 3</td>
+                                            <td>1 , 4</td>
+                                            <td>1 , 5</td>
+                                            <td>1 , 6</td>
+                                            <td>1 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>2 , 1</b></td>
+                                            <td>2 , 2</td>
+                                            <td>2 , 3</td>
+                                            <td>2 , 4</td>
+                                            <td>2 , 5</td>
+                                            <td>2 , 6</td>
+                                            <td>2 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>3 , 1</b></td>
+                                            <td><b>3 , 2</b></td>
+                                            <td>3 , 3</td>
+                                            <td>3 , 4</td>
+                                            <td>3 , 5</td>
+                                            <td>3 , 6</td>
+                                            <td>3 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>4 , 1</b></td>
+                                            <td><b>4 , 2</b></td>
+                                            <td><b>4 , 3</b></td>
+                                            <td>4 , 4</td>
+                                            <td>4 , 5</td>
+                                            <td>4 , 6</td>
+                                            <td>4 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>5 , 1</b></td>
+                                            <td><b>5 , 2</b></td>
+                                            <td><b>5 , 3</b></td>
+                                            <td><b>5 , 4</b></td>
+                                            <td>5 , 5</td>
+                                            <td>5 , 6</td>
+                                            <td>5 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>6 , 1</b></td>
+                                            <td><b>6 , 2</b></td>
+                                            <td><b>6 , 3</b></td>
+                                            <td><b>6 , 4</b></td>
+                                            <td><b>6 , 5</b></td>
+                                            <td>6 , 6</td>
+                                            <td>6 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>7 , 1</b></td>
+                                            <td><b>7 , 2</b></td>
+                                            <td><b>7 , 3</b></td>
+                                            <td><b>7 , 4</b></td>
+                                            <td><b>7 , 5</b></td>
+                                            <td><b>7 , 6</b></td>
+                                            <td>7 , 7</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Analizând tabelul cu indicii observăm că elementele aflate în zona care ne interesează au proprietatea că
+                                indicele de linie este mai mare decât cel de coloană și doar în această zonă elementele au această proprietate.
+                                Astfel, putem traversa toată matricea și, cu un if, selectăm aceste elemente.
+                                </p>
+                            <pre><code>for (i = 1; i <= n; i++)
+    for (j = 1;j <= n; j++)
+        if (i > j)
+            sum += a[i][j];</code></pre>
+                            <p>Codul prezentat vizitează elementele din zona aflată strict sub diagonală. Pentru a include și diagonala era
+                                suficient să schimbăm doar semnul de comparare de la condiția lui if din > în >=.</p>
+                            <p>O variantă mai bună decât cea prezentată este să analizăm atent cum putem vizita doar elementele din zona
+                                care ne interesează. Am reduce astfel la jumătate timpul de executare (în zona care ne interesează sunt
+                                aproximativ jumătate dintre elementele matricei).</p>
+                            <p>Observăm că liniile acoperite de elementele zonei sunt între 2 și n.</p>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <b><li>Pe linia 2, coloanele sunt de la 1 la 1</li>
+                                    <li>Pe linia 3, coloanele sunt de la 1 la 2</li>
+                                    <li>Pe linia 4, coloanele sunt de la 1 la 3</li>
+                                    <li>...</li>
+                                    <li>Pe linia n coloanele sunt de la 1 la n-1.</li></b>
+                                </ul>
+                            </div>
+                            <p>Așadar, dacă vom vizita cu primul for liniile (i fiind indicele, deci linia curentă), coloana (deci indicele j de la
+                                al doilea for) va fi între 1 și i-1.</p>
+                            <pre><code>for (i = 1;i <= n; i++)
+    for (j = 1; j < i; j++)
+        sum += a[i][j]; </code></pre>
+                            <p>Această variantă are complexitatea teoretică în timp tot de ordin n<sup>2</sup>
+                                , ca și prima, dar numărul efectiv de
+                                operații este mai mic (aproximativ jumătate).</p>
+                            <h3>Parcurgerea elementelor din triunghiul delimitat de diagonala principală, aflate deasupra ei.</h3>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td>1 , 1</td>
+                                            <td><b>1 , 2</b></td>
+                                            <td><b>1 , 3</b></td>
+                                            <td><b>1 , 4</b></td>
+                                            <td><b>1 , 5</b></td>
+                                            <td><b>1 , 6</b></td>
+                                            <td><b>1 , 7</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2 , 1</td>
+                                            <td>2 , 2</td>
+                                            <td><b>2 , 3</b></td>
+                                            <td><b>2 , 4</b></td>
+                                            <td><b>2 , 5</b></td>
+                                            <td><b>2 , 6</b></td>
+                                            <td><b>2 , 7</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3 , 1</td>
+                                            <td>3 , 2</td>
+                                            <td>3 , 3</td>
+                                            <td><b>3 , 4</b></td>
+                                            <td><b>3 , 5</b></td>
+                                            <td><b>3 , 6</b></td>
+                                            <td><b>3 , 7</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4 , 1</td>
+                                            <td>4 , 2</td>
+                                            <td>4 , 3</td>
+                                            <td>4 , 4</td>
+                                            <td><b>4 , 5</b></td>
+                                            <td><b>4 , 6</b></td>
+                                            <td><b>4 , 7</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>5 , 1</td>
+                                            <td>5 , 2</td>
+                                            <td>5 , 3</td>
+                                            <td>5 , 4</td>
+                                            <td>5 , 5</td>
+                                            <td><b>5 , 6</b></td>
+                                            <td><b>5 , 7</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>6 , 1</td>
+                                            <td>6 , 2</td>
+                                            <td>6 , 3</td>
+                                            <td>6 , 4</td>
+                                            <td>6 , 5</td>
+                                            <td>6 , 6</td>
+                                            <td><b>6 , 7</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7 , 1</td>
+                                            <td>7 , 2</td>
+                                            <td>7 , 3</td>
+                                            <td>7 , 4</td>
+                                            <td>7 , 5</td>
+                                            <td>7 , 6</td>
+                                            <td>7 , 7</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Vom prezenta, ca și mai sus, două moduri de abordare:</p>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li>Observăm relația dintre indici pentru elementele zonei și le selectăm cu if în timpul parcurgerii
+                                        întregii matrice;</li>
+                                    <li>Fixăm cu un indice liniile cu elemente care ne interesează și variem cu alt indice coloana de pe linia
+                                        curentă după ce observăm regula generală pe care o aplicăm fiecărei linii;</li>
+                                </ul>
+                            </div>
+                            <p>Varianta 1.
+                            </p>
+                            <p>Elementele zonei dorite sunt cele cu indicele de linie strict mai mic decât cel de coloană</p>
+                            <pre><code>for (i = 1;i <= n;i++)
+    for (j = 1;j <= n; j++)
+        if (i < j)
+            sum += a[i][j];</code></pre>
+                            <p>Varianta 2.</p>
+                            <p>Observăm că ne interesează linii de la 1 la n-1</p>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <b><li>Pe linia 1 avem coloane de la 2 la n</li>
+                                    <li>Pe linia 2 avem coloane de la 3 la n</li>
+                                    <li>Pe linia 3 avem coloane de la 4 la n</li>
+                                    <li>...</li>
+                                    <li>Pe linia n-1 avem coloane de la n la n</li></b>
+                                </ul>
+                            </div>
+                            <pre><code>for (i = 1;i <= n; i++)
+    for (j = i+1;j <= n; j++)
+        sum += a[i][j];</code></pre>
+                            <p>n legătură cu diagonala principală și celelalte diagonale “paralele” cu ea, facem următoarele observații:</p>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li>Am spus că pentru elementele de pe diagonala principală i=j. Acest lucru este echivalent cu i-j=0.</li>
+                                    <li>Elementele de pe paralela la diagonala principală aflate imediat sub ea au i-j=1.</li>
+                                    <li>Elementele aflate pe diagonala aflate sub cea anterioară au i-j=2.</li>
+                                    <li>În cealaltă parte, elementele diagonalei aflată imediat deasupra celei principale au i-j=-1.</li>
+                                </ul>
+                            </div>
+                            <p>În colcluzie, elementele aflate pe diagonala principală sau pe aceeași paralelă la ea au diferența indicilor
+                                constantă.</p>
+                            <h3>Diagonala secundară și zonele delimitate de ea</h3>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td>1 , 1</td>
+                                            <td>1 , 2</td>
+                                            <td>1 , 3</td>
+                                            <td>1 , 4</td>
+                                            <td>1 , 5</td>
+                                            <td>1 , 6</td>
+                                            <td><b>1 , 7</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2 , 1</td>
+                                            <td>2 , 2</td>
+                                            <td>2 , 3</td>
+                                            <td>2 , 4</td>
+                                            <td>2 , 5</td>
+                                            <td><b>2 , 6</b></td>
+                                            <td>2 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3 , 1</td>
+                                            <td>3 , 2</td>
+                                            <td>3 , 3</td>
+                                            <td>3 , 4</td>
+                                            <td><b>3 , 5</b></td>
+                                            <td>3 , 6</td>
+                                            <td>3 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4 , 1</td>
+                                            <td>4 , 2</td>
+                                            <td>4 , 3</td>
+                                            <td><b>4 , 4</b></td>
+                                            <td>4 , 5</td>
+                                            <td>4 , 6</td>
+                                            <td>4 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5 , 1</td>
+                                            <td>5 , 2</td>
+                                            <td><b>5 , 3</b></td>
+                                            <td>5 , 4</td>
+                                            <td>5 , 5</td>
+                                            <td>5 , 6</td>
+                                            <td>5 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6 , 1</td>
+                                            <td><b>6 , 2</b></td>
+                                            <td>6 , 3</td>
+                                            <td>6 , 4</td>
+                                            <td>6 , 5</td>
+                                            <td>6 , 6</td>
+                                            <td>6 , 7</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>7 , 1</b></td>
+                                            <td>7 , 2</td>
+                                            <td>7 , 3</td>
+                                            <td>7 , 4</td>
+                                            <td>7 , 5</td>
+                                            <td>7 , 6</td>
+                                            <td>7 , 7</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>De data aceasta vom porni cumva invers cu observațiile și anume: pentru elementele de pe diagonala
+                                secundară suma indicilor este n+1. Uitându-ne atent se vede că pe fiecare paralelă la diagonala secundară suma indicilor este constantă. Deci pe paralela aflată imediat deasupra suma indicilor este n, pe cea aflată încă
+                                un nivel mai sus suma indicilor este n-1 etc.</p>
+                            <p><b>Deci, pe paralelele la diagonala principală avem diferența indicilor constantă iar pe paralelele la diagonala
+                                secundară avem suma indicilor constantă.
+                                .</b></p>
+                            <h4>Parcurgerea elementelor de pe diagonala secundară</h4>
+                            <p>Varianta 1. Este cea neoptimă: parcurgem toată matricea și punem condiția i+j=n+1</p>
+                            <pre><code>for (i = 1;i <= n; i++)
+    for (j = 1;j <= n;j++)
+        if (i + j == n + 1)
+            sum += a[i][j];</code></pre>
+                            <p>Varianta 2. Observăm că zona de parcurs este liniară deci trebuie să putem rezolva cu un for. Fixăm indicele
+                                acestuia ca fiind linia unde avem elemente (de la 1 la n aici) și coloana o calculăm ca find
+                                n + 1 - liniaCurenta.</p>
+                            <pre><code>for (i = 1;i <= n; i++)
+    sum += a[i][n + 1 - i]; /// or a[i][n - i + 1]</code></pre>
+                            <h4>Parcurgerea elementelor din triunghiul delimitat de diagonala secundară, aflate sub ea</h4>
+                            <p>Prima variantă se bazează pe observația că elementele acestei zone sunt cele pentru cate i+j>n+1. Așadar
+                                putem parcurge toată matricea și selectăm cu if doar aceste elemente.</p>
+                            <pre><code>for (i = 1;i <= n;i++)
+    for (j = 1;j <= n; j++)
+        if (i + j > n + 1)
+            sum += a[i][j];</code></pre>
+                            <p>Varianta a doua, cea în care vizităm exact elementele zonei se bazează pe observația:</p>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li>Avem elemente pe linii de la 2 la n;</li>
+                                    <li>La o anume linie i, elementele care ne interesează sunt cele aflate după cel de pe diagonala
+                                        secundară de pe linia i și până la finalul liniei. Așadar, indicii sunt de la (n+1-i)+1 până la n. Am
+                                        scris în scop didactic formula dar în cod scriem compact n-i+2.</li>
+                                </ul>
+                            </div>
+                            <pre><code>for (i = 2;i <= n; i++)
+    for (j = n - i + 2; j <= n; j++)
+        sum += a[i][j];</code></pre>
+                            <h4>Parcurgerea elementelor din triunghiul delimitat de diagonala secundară, aflate deasupra ei</h4>
+                            <p>Varianta 1: elementele care ne interesează sunt cele cu suma indicilor mai mică decât n+1.</p>
+                            <pre><code>for (i = 1;i <= n;i++)
+    for (j = 1;j <= n;j++)
+        if (i + j < n + 1)
+            sum += a[i][j];</code></pre>
+                            <p>Varianta 2: facem observațiile:</p>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li>Avem elemente pe linii de la 1 la n-1;</li>
+                                    <li>La o anume linie i, elementele care ne interesează sunt cele aflate de la începutul liniei, deci coloana
+                                        1, până înainte de cel de pe diagonala secondară, adică mergem cu coloana până la n-i.</li>
+                                </ul>
+                            </div>
+                            <pre><code>for (i = 1; i < n; i++)
+    for (j = 1; j <= n-i; j++)
+        sum += a[i][j]; </code></pre>
+                            <h3>Probleme rezolvate</h3>
+                            <p>Ideile folosite la rezolvarea acestor probleme sunt unele clasice, des întâlnite în practică</p>
+                            <h4>1. Se citește de la tastatură un număr n. Să se construiască o matrice pătratică de dimensiune n, după
+                                următoarele reguli:</h4>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li>Elementele de pe diagonala principală să aibă valoarea 1;</li>
+                                    <li>Elementele din triunghiul de sub diagonala principală să aibă valoarea 2;</li>
+                                    <li>Elementele din triunghiul de deasupra diagonalei principale să aibă valoarea 3.</li>
+                                </ul>
+                            </div>
+                            <p>Exemplu:</p>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td>Input</td>
+                                            <td>Output</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td><pre>1 3 3 3 3
+2 1 3 3 3
+2 2 1 3 3
+2 2 2 1 3
+2 2 2 2 1</pre></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Rezolvare:</p>
+                            <p>Observăm că de data aceasta nu se mai citesc de la tastatură toate valorile unei matrice. Avem de construit
+                                una pornind de la dimensiunea sa. Întrucât avem de vizitat toate elementele se impune folosirea metodei care
+                                traversează toată matricea și care, cu if, identifică zona în care ne aflăm. Mai departe prezentăm doar
+                                secvența de cod presupunând că matricea de construit se numește a.</p>
+                            <pre><code>for (i = 1;i <= n;i++)
+    for (j = 1;j <= n;j++) {
+        if (i == j)
+            a[i][j] = 1;
+        else
+            if (i > j)
+                a[i][j] = 2;
+            else
+                a[i][j] = 3;
+}</code></pre>
+                            <p>Am prezentat doar secvența de memorare de valori în matrice fără a mai afișa ulterior tabloul.</p>
+                            <h4>2. Se citește de la tastatură un număr n. Să se construiască o matrice pătratică de dimensiune n după
+                                regulile:</h4>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li>Elementele celor două diagonale au valoarea 1;</li>
+                                    <li>Elementele triunghiului de sus delimitat de cele două diagonale au valoarea 2;</li>
+                                    <li>Elementele triunghiului de jos delimitat de cele două diagonale au valoarea 3;</li>
+                                    <li>Elementele triunghiului din stânga delimitat de cele două diagonale au valoarea 4;</li>
+                                    <li>Elementele triunghiului din dreapta delimitat de cele două diagonale au valoarea 5;</li>
+                                </ul>
+                            </div>
+                            <p>Exemplu:</p>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td>Input</td>
+                                            <td>Output</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td><pre>1 2 2 2 1
+4 1 2 1 5
+4 4 1 5 5
+4 1 3 1 5
+1 3 3 3 1</pre></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Solution:</p>
+                            <p>Aplicăm aceeași tehnică de la problema anterioară, parcurgând toată matricea și identificând zona în care ne
+                                aflăm. Pentru zonele triunghiulare delimitate de două diagonale folosim if cu două condiții, câte o condiție
+                                pentru a indica partea de care se află elementul curent față de fiecare diagonală.</p>
+                            <pre><code>for (i = 1;i <= n; i++)
+    for (j = 1;j <= n; j++) {
+        if (i == j || i + j == n + 1)
+            a[i][j] = 1;
+        if (i < j || i + j < n + 1)
+            a[i][j] = 2;
+        if (i > j || i + j > n + 1)
+            a[i][j] = 3;
+        if (i > j || i + j < n + 1)
+            a[i][j] = 4;
+        if (i < j || i + j > n + 1)
+            a[i][j] = 4;
+}</code></pre>      
+                            <p>La această problemă am ales varianta cu if-uri succesive în locul celei cu if-else-if întucât codul este
+                                mai compact.</p>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<!-- <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

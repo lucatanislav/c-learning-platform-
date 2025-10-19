@@ -1,0 +1,524 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>C++ Char</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Sudo learn C++</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Acasă</a></li>
+						<li><a href="arrays.html" class="active">C++ Char</a></li>
+						<li><a href="index.html#two">Lecții</a></li>
+                        <li><a href="index.html#three">Quiz</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Char data Type</h1>
+							<p>Tipurile de date pe care le-am prezentat în al doilea capitol au fost clasificate larg în: întregi și reale. Tipurile de
+                                date întregi prezentate au fost diferențiate doar prin numărul de octeți ocupați de variabilele: <b>short</b> și
+                                <b>unsigned short </b> – pe 2 octeți, <b>int</b> și <b>unsigned int</b> pe 4 octeți, <b>long long </b> și <b>unsigned long
+                                long </b> pe 8 octeți.
+                                </p>
+                                <p>Există și tip de date întreg pe un octet și acesta este tipul char. Acum apare întrebarea de ce tipul char nu a
+                                    fost prezentat deodată cu celelalte tipuri întregi. Motivul este că tipul de date char a fost gândit pentru ceva
+                                    mai mult decât să stocheze valori întregi pe un octet. El permite în plus lucrul cu simboluri și mai departe stă la
+                                    baza lucrului cu cuvinte..</p>
+                                <p>În acest material ne ocupăm de regulile de care trebuie ținut cont pentru a înțelege cum manipulăm corect
+                                    datele de tip char..</p>
+                                <p>Fiind deci tip întreg pe un octet, avem tipurile:</p>
+                                <div class="table-wrapper">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Char</td>
+                                                <td>Tip întreg cu semn deci valori cuprinse între -2
+                                                    7 și 2
+                                                    7-1, deci între -128
+                                                    și 127 (inclusiv).
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Unsigned char</td>
+                                                <td>Tipul întreg fără semn deci valori cuprinse între 0 și 2
+                                                    8-1, deci între 0 și
+                                                    255 inclusiv.
+                                                    </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p>Cele prezentate în continuare sunt valabile fie că discutăm despre tipul char fie că discutăm despre
+                                    unsigned char (evident, cu excepția intervalului de valori pe care le poate lua o variabilă, cum e prezentat
+                                    mai sus).
+                                    .</p>
+                                <p>Iată câteva exemple:</p>
+                                <p>Le considerăm în contextul declarațiilor:</p>
+                                <pre><b>char a, b;
+int x;</b></pre>
+                                 <div class="table-wrapper">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>a = 10;</td>
+                                                <td>Corect, atribuim o constantă întreagă unei variabile de tip întreg. Mai mult,
+                                                    valoarea constantei este în intervalul de valori posibile pentru variabilă.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><pre>a = 10;
+b = a * 2;</pre></td>
+                                                <td>Corect, de asemenea este vorba despre operații cu date întregi</td>
+                                            </tr>
+                                            <tr>
+                                                <td>x = a + b; </td>
+                                                <td>Corect, de asemenea, se adună valorile din dreapta și rezultatul se copiază în
+                                                    variabila din stânga. Nu este nicio problemă din cauza faptului că este vorba de
+                                                    tipuri diferite (<b>int </b> respectiv <b>char</b>) deoarece știm că sunt permise astfel de
+                                                    situații.
+                                                    </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h3>Totuși, ce are totuși special tipul de date <i> char? </i></h3>
+                                <p>Așa cum am spus mai sus, prin intermediul lui putem lucra în C/C++ cu simboluri și cuvinte. Prin convenție,
+                                    fiecare simbol are asociat un cod numeric numit cod <b>ASCII</b> al său. Acest cod este valoarea numerică memorată
+                                    când se stochează în <b>RAM</b> sau pe suport extern simbolul. Iată câteva coduri asociate simbolurilor:</p>
+                                <pre><b>97 pentru a
+65 pentru A
+48 pentru 0
+32 pentru spațiu</b></pre>
+                                <p>De asemenea, celelalte litere ale alfabetului au coduri consecutive, adică b are 98, c are 99, B are 66, C are
+                                    67 etc. Observăm de pe acum și e bine să reținem că avem coduri mai mari pentru literele mici decât pentru
+                                    literele mari.
+                                    </p>
+                                <h3>Iată cele trei lucruri speciale pentru datele de tip char:</h3> <br>
+                                <h3>1. Constantele de tip char se pot scrie și prin punerea unui simbol între apostrofuri. Iată câteva
+                                    exemple:</h3>
+                                <p>Considerăm declarațiile:</p>
+                                <pre><b>char a, b;
+int x;</b></pre>
+                                <div class="table-wrapper">
+										<table class="alt">
+											<tbody>
+												<tr>
+													<td><pre>‘ a ’  ‘ C ’  ‘ & ’  ‘ 2 ’ </pre></td>
+													<td>Constante de tip char corespunzătoare valorilor numerice: 97,
+                                                        67, 38 și 50.
+                                                        </td>
+												</tr>
+												<tr>
+													<td>a = ' a '</td>
+													<td>Variabila întreagă a primește valoarea 97</td>
+													
+												</tr>
+												<tr>
+													<td>b = ' 2 '</td>
+													<td>Variabila întreagă b primește valoarea 50.</td>
+													
+												</tr>
+												<tr>
+													<td>x = ‘ a ’ + 2 * ‘ b ’;</td>
+													<td>Variabila x primește valoarea 97 + 2 * 98 adică 293.
+                                                    </td>
+												</tr>
+												<tr>
+													<td>a = 99;</td>
+													<td>Corect, variabila a primește valoarea codului simbolului c</td>
+												</tr>
+                                                <tr>
+                                                    <td>a = ‘ 2 ’ * 2;</td>
+                                                    <td>Aici variabila a primește valoarea 100. Observăm diferența între
+                                                        2 pus între apostrofuri, care este scris folosind sintaxa specifică la
+                                                        constantele de tip char - deci reprezintă valoarea 50 și 2 scris
+                                                        conform regulii obișnuite la constantele întregi.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>’ ab ’</td>
+                                                    <td>Eroare de sintaxă. Între apostrofuri se scrie un singur simbol. </td>
+                                                </tr>
+											</tbody>
+										</table>
+									</div>
+                                <p>În concluzie, scrierea unui simbol între apostrofuri reprezintă un alt mod de a specifica o valoare întreagă
+                                    constantă (observăm că sunt permise toate operațiile cu numere întregi).</p>
+                                <h3>2. La afișarea cu cout a unei date de tip char, specificată explicit drept char, se afișează pe ecran
+                                    simbolul ce are drept cod valoarea numerică memorată de data de tip char.
+                                    </h3>
+                                <p>Să explicăm mai exact la ce ne referim când spunem că data de afișat să fie indicată exact ca fiind de tip
+                                    char: variabilă de tip char dată ca parametru la afișare, constantă scrisă după regula simbolului între
+                                    apostrofuri, expresie care are în față operatorul de conversie la char sau o funcție care returnează o dată de
+                                    tip char</p>
+                                <p>Trebuie să ținem cont de următorul lucru: dacă data de tip char apare într-o expresie alături de alte date și
+                                    operatori, rezultatul se convertește automat la int chiar dacă rezultatul ar putea fi memorat pe un octet. Așa
+                                    funcționează limbajul în cazul aplicării operatorilor, deci încearcă să facă toate calculele în tipul de date cel mai
+                                    cuprinzător, iar în cazul în care acesta este int sau mai puțin de int, calculele se fac în int. În aceste cazuri
+                                    rezultatul se consideră deci de tip int și se va tipări valoarea numerică în loc de simbol. Iată câteva exemple</p>
+                                <p>Considerăm declarațiile:</p>
+                                <pre><b>char a, b;
+int x;</b></pre>
+                                <div class="table-wrapper">
+										<table class="alt">
+											<tbody>
+												<tr>
+													<td><pre>a = ‘c’;
+cout << a; </pre></td>
+													<td>Se va tipări pe ecran c, fiind vorba de o varibilă de tip char dată ca parametru
+                                                        la cout.
+                                                        </td>
+												</tr>
+												<tr>
+													<td><pre>a = 99;
+cout << a;</pre></td>
+													<td>Se va tipări, de asemenea valoarea c (exact ca la exemplul anterior). Nu are
+                                                        importanță modul în care a fost specificată constanta atribuită variabilei de tip
+                                                        char. În ambele cazuri ea stochează același luru iar lui cout îi este specificată
+                                                        o variabilă de tip char</td>
+													
+												</tr>
+												<tr>
+													<td>cout << ’c’; </td>
+													<td>Se tipărește c. A fost pus parametru la cout o constantă specificată de tip char</td>
+													
+												</tr>
+												<tr>
+													<td>cout << 99;</td>
+													<td>Se tipărește 99. Chiar dacă valoarea 99 se poate memora pe un octet ea nu este
+                                                        specificată lui cout efectiv după regula specială de scriere a constantelor de tip
+                                                        char, deci se va tipări valoarea numerică.</td>
+												</tr>
+												<tr>
+													<td>cout << (char)99;</td>
+													<td>Se tipărește pe ecran c. Aici am specificat prin operatorul de conversie că
+                                                        valoarea finală a expresiei este de tip char.
+                                                        </td>
+												</tr>
+                                                <tr>
+                                                    <td>cout << ’ a ’ + 1; </td>
+                                                    <td>Se tipărește pe ecran 98. Între constanta char ‘a’ și 1 se aplică operatorul +
+                                                        și am spus că în acest caz calculele se fac în int, așadar de tip int este și
+                                                        rezultatul final</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>cout << ’ a ’ + ’ b ’;</td>
+                                                    <td>Este corect scris dar se afișează 195. Este valabilă explicația de la exemplul
+                                                        anterior</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>cout << (int) ’ 0 ’;</td>
+                                                    <td>Se afișează pe ecran 48. Nu confundăm 0 scris între apostrofuri cu numărul 0.
+                                                        Codul care se memorează pentru simbolul 0 este 48. Noi înainte de afișare
+                                                        convertim valoarea la int.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><pre>a = ‘ ’;
+x = a;
+cout << x;</pre></td>
+                                                    <td>Se afișează 32 (codul caracterului spațiu). Considerăm că între cele două
+                                                        apostrofuri de la prima atribuire am scris un spațiu.
+                                                        </td>
+                                                </tr>
+											</tbody>
+										</table>
+									</div>
+                            <h3>3. La citirea cu cin, dacă parametru este o variabilă de tip char, ceea ce se introduce de la tastatură
+                                este interpretat ca simbol.</h3> <br>
+                            <p>Considerăm declarațiile:</p>
+                            <pre><b>char a, b;</b></pre>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td><pre>cin>>a;
+cout << a;</pre></td>
+                                            <td>Introducem d apoi
+                                                enter.
+                                                </td>
+                                            <td>Se afișează pe ecran d întrucât în
+                                                dreptul variabilei de tip char am
+                                                introdus un simbol.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><pre>cin>>a>>b;
+cout << a << ” ” << b << ” ” << a + b;</pre></td>
+                                            <td>Introducem aA
+                                                apoi enter.
+                                                </td>
+                                            <td>Se memorează 97 (codul simbolului a)
+                                                în variabila a și 65 în variabila b. Se
+                                                tipărește a A 162
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td><pre>cin>>a>>b;
+cout << a << ” ” << b << ” ” << a+b;</pre></td>
+                                            <td>Introducem 1a
+                                                apoi enter.</td>
+                                            <td>Se memorează 49 (codul simbolului 1)
+                                                în variabila a și 97 în variabila b. Se
+                                                tipărește 1 a 146</td>
+                                        </tr>
+                                        <tr>
+                                            <td><pre>cin >> a;</pre></td>
+                                            <td>Introducem spațiu
+                                                și apoi enter.</td>
+                                            <td>Nu se termină citirea. Este momentul să
+                                                subiniem că întotdeauna citirea cu cin
+                                                ignoră caracterele albe (spațiu, enter
+                                                tab). Adică nu le consideră caractere
+                                                utile pentru valorile variabilelor
+                                                parametri. Așadar se asteaptă
+                                                introducerea a cel puțin un caracter
+                                                nealb.
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Concluzia principală trebuie să fie că datele de tip char sunt stocate ca și numere, permit folosirea
+                                operatorilor aplicabili în general la datele întregi, dar la interacțiunea cu dispozitivele de intrare/ieșire, adică la
+                                citire/scriere, ele se interpretează ca simboluri. De asemenea, există varianta specială să indicăm constantele
+                                de tip char (simbol pus între apostrofuri)</p>
+                            <p>Scrierea constantelor de tip char pentru catacterele speciale.</p>
+                            <p>Pentru codurile de la 0 la 31 nu există specificate în standard simboluri asociate. Caracterele cu aceste coduri
+                                au în general alte specificații și nu tipărirea unui anume simbol pe ecran. De aceea, pentru ele nu putem folosi
+                                scrierea specifică la constante pentru că pur și simplu nu avem ce pune între apostrofuri ca simbol. Există
+                                totuși o convenție care ne permite să ne referim și la ele ca și constante de tip char: secvențele escape</p>
+                            <p>O secvență escape se specifică prin mai multe simboluri între apostrofuri, primul simbol fiind \ (backslash).
+                                Chiar dacă se scriu mai multe simboluri nu trebuie să ne gândim că ar fi vorba despre mai multe caractere,
+                                este vorba despre unul singur dar indicat într-un anume fel.</p>
+                            <p>Iată secvențele escape pentru câteva caractere speciale:</p>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td><pre>‘ \n ’</pre></td>
+                                            <td>Codul ASCII 10, caracterul enter. Afișatea acestui caracter are ca efect mutarea
+                                                cursorului de pe ecran pe rândul următor. Noi de fapt am mai folosit acest carcter ca
+                                                parte a mesajelor. Efectul de mutare a cursorului la începutul rândului următor apare și
+                                                dacă îl tipărim ca pe un caracter izolat și dacă îl scriem în componența unui șir de
+                                                caractere (adică între ghilimele)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>‘ \t ’</td>
+                                            <td>Codul ASCII 9, caracterul tab. Tipărirea lui ca și simbol are ca efect apariția pe ecran a
+                                                unu “spațiu mai lung”</td>
+                                        </tr>
+                                        <tr>
+                                            <td>‘ \b ’</td>
+                                            <td>Codul ASCII 8, caracterul backspace. Tipărirea lui are ca efect mutarea cursorului o
+                                                poziție în stânga, adică sub ultimul simbol tipărit pe ecran pe linia curentă. Nu îl șterge
+                                                de pe ecran dar el va dispărea, fiind suprascris, la următoarea afișare.</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>‘ \a ’</td>
+                                            <td>Codul ASCII 9, caracterul alarm. Tipărirea lui are ca efect un sunet care se aude din
+                                                speaker sau boxe.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Dintre aceste caractere, enter este des folosit, la celelalte le-am prezentat efectul poate mai mult ca
+                                amuzament</p>
+                            <p>Dacă rulăm următorul cod, rezultatele se vor vedea în captura de consolă afișată în dreapta.</p>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td><pre>cout << "*" << '\n' << (int)'\n' << "*\n";
+cout << "*" << '\t' << (int)'\t' << "*\n";
+cout << "*" << '\b' << (int)'\b' << "*\n";
+cout << "*" << '\a' << (int)'\a' << "*\n";</pre></td>
+                                            <td><pre>*
+10*
+*         9*
+8*
+*7*</pre></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Pe fiecare linie de cod noi am scris tipărirea unui caracter ca “simbol” urmat de codul ASCII al său, cele două
+                                încadrate de doua caractere stea.</p>
+                            <p>Să explicăm ce este în dreapta. Caraterul enter mută cursorul pe linia următoare, deci pe prima linie rămâne
+                                doar o steluță, iar pe a doua, de la început este codul lui enter (10) și steluța de final a primei linii de cod.</p>
+                            <p>Noi am tipărit final de linie la fiecare instrucțiune deci pentru următorul simbol se trece pe rând nou. Acolo
+                                observăm un spațiu mare între prima steluță și 9, adică s-a afișat “simbolul” tab urmat de codul său.
+                                </p>
+                            <p>Pe linia următoare a ecranului sunt cele produse de a treia linie de cod. Steluța de început s-a afișat, dar
+                                tipărirea “simbolului” backspace a dus cursorul sub ea. Apoi, la afișarea codului lui backspace (8) acesta a
+                                suprascris-o. Pe ultima linie apare doar 7 între steluțe deoarece efectul de tipărire a simbolului este de fapt
+                                sunetul produs.</p>
+                            <p>Alte trei secvențe escape particulare se pot folosi pentru caracterele apostrof, ghilimele și backspace. Ele se
+                                scriu precedate de backslash.</p>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td>‘ \ ’ ’</td>
+                                            <td>Caracterul apostrof.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>‘ \ ” ’</td>
+                                            <td>Caracterul ghilimele.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>‘ \\ ’</td>
+                                            <td>Caraterul backslash.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Cum ne referim ca și caractere la celelalte ce au coduri între 0 și 31? Noi aici am prezentat doar 4 dintre
+                                caracterele neafișabile. Răspunsul vine din forma generală de scriere a secvențelor escape: între apostrofuri,
+                                cu backspace în față, putem scrie un cod în baza de numerație 8. Adică scrierea în baza 8 a codului ASCII. În
+                                acest mod putem indica toate caracterele, inclusiv pe cele cu simbol asociat, ca secvențe escape.</p>
+                            <p>Exemple:</p>
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <tbody>
+                                        <tr>
+                                            <td><pre>cout << ’ \141 ’;</pre></td>
+                                            <td>Transformarea valorii 141 din baza 8 în baza 10 are ca rezultat
+                                                97. Așadar se va tipări pe ecran simbolul a, fiind vorba despre
+                                                indicarea efectiv a unei constante de tip char</td>
+                                        </tr>
+                                        <tr>
+                                            <td><pre>cout << ’ * ’ << ’ \12 ’ << ’ * ’;</pre></td>
+                                            <td>Se tipăresc două steluțe, însă fiecare pe câte un rând. Este ca și
+                                                cum în loc de ‘\12’ am fi scris ‘\n’ deoarece 12 este scrierea
+                                                în baza 8 a lui 10 (codul ASCII al lui enter).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><pre>cout << ’ \n ’ + ‘ a ’ + ‘ \11 ’;</pre></td>
+                                            <td>Evident că nu sunt decât rațiuni didactice să scriem așa. Acum ne
+                                                ajută doar la o mai bună fixare a cunoștințelor. Este vorba despre
+                                                constante de tip char, indicate în diverse moduri, cu operatori
+                                                aritmetici. Deci calculele se fac în int, adunându-se numerele ce
+                                                reprezintă codurile lor ASCII. Rezultatul afișat este 116 (10 +
+                                                97 + 9).
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>Exerciții și probleme rezolvate</p>
+                            <h3>1. Având memorat în variabila x de tip char codul unei litere mici a alfabelului, să se modifice aceasta
+                                pentru a memora codul literei mari corespunzătoare.</h3>
+                            <p>Solution:</p>
+                            <pre><code>x = x – ( ‘ a ’ – ‘ A ’ );</code></pre>
+                            <p>În loc de ‘a’-‘A’ puteam să scriem ‘b’-‘B’ sau ‘p’-‘P’ sau orice diferență între codurile unei perechi
+                                literă mică - literă mare identice. Acest lucru se datorează faptului că această diferență este constantă și
+                                trebuie să mai știm că literele mici au codurile mai mari decât cele mari. Această diferență este 32 dar noi nu
+                                trebuie deci să ținem minte acest lucru</p>
+                            <h3>2. Având memorat în variabila x de tip char codul unei litere mici a alfabelului, să se afișeze pe ecran
+                                următoarea literă în alfabet (sau un mesaj dacă deja x memorează valoarea ultimei litere).
+                                </h3>
+                            <p>Solution:</p>
+                            <pre><code>if (x == ‘z’)
+    cout << ”ultima”;
+else
+    cout << (char)(x+1);</code></pre>
+                            <h3>3. Se citește de la tastatură o dată de tip char. Să se afișeze msajul DA dacă s-a introdus o literă mică a
+                                alfabetului sau mesajul NU dacă s-a introdus altceva.
+                                </h3>
+                            <p>Rezolvare:</p>
+                            <p>Literele mici ale alfabetul au codurile ASCII într-un interval, așadar testul este echivalent cu a compara doar cu
+                                marginile. Nu este necesară cunoașterea codurilor ASCII ale primei și ultimei litere, este suficient să scriem
+                                simbolul între apostrofuri pentru că am stabilit că operatorii se aplică oricum codului numeric..</p>
+                            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+char x;
+int main () {
+cin>>x;
+if (x >= 'a' && x <= 'z')
+    cout << "DA";
+else
+    cout << "NU";
+return 0;
+}</code></pre>
+                            <h3>4. Se citește de la tastatură o dată de tip char. Să se afișeze msajul literă dacă s-a introdus o literă a
+                                alfabetului (mare sau mică), mesajul cifră dacă s-a introdus un simbol cifră sau mesajul altceva în alt
+                                caz.</h3>
+                            <p>Rezolvare:</p>
+                            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+char x;
+int main () {
+cin >> x;
+if ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z'))
+    cout << "litera";
+else
+if (x >= '0' && x <= '9')
+    cout << "cifra";
+else
+    cout << "altceva";
+return 0;
+}</code></pre>
+                            <p>Literele mari și cele mici reprezintă două intervale de coduri. Așadar testul de literă se reduce la a testa dacă
+                                ne aflăm în unul dintre aceste intervale. Știind că literele mari au codurile mai mici, poate suntem tentați să
+                                scriem (x >= ‘A’ && x <= ‘z’). Acest lucru nu este corect întrucât cele două intervale nu sunt lipite.
+                                Fiind 26 de litere, A având codul 65, obținem că Z are codul 90. Deci de la 91 până la 96 sunt și alte
+                                caractere (97 este codul lui a).</p>
+                            <p>Trebuie să fim atenți la testul de cifră pentru că deseori se întâmplă să se uite apostrofurile. Nu se primește
+                                eroare de compilare dar nici nu se compară cu ce ne-am dori (codul ASCII al simbolului).
+                                </p>
+                            <h3>5. Se citește de la tastatură o dată de tip char. Să se verifice dacă reprezintă o vocală literă mică.</h3>
+                            <p>Rezolvare:</p>
+                            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+char x;
+int main () {
+    cin>>x;
+if (x=='a'||x=='e'||x=='i'||x=='o'||x=='u')
+    cout << "este vocala";
+else
+    cout << "nu este vocala";
+    return 0;
+}</code></pre>
+                            <p>Codurile ASCII ale vocalelor nu sunt consecutive așa că nu mai putem pune condiția de apartenență a
+                                caracterului la un interval. Fiind doar 5 vocale putem scrie o condiție compusă din alte 5 legate prin ||. Dacă
+                                am avea de testat dacă este consoană caracterul citit nu trebuie să ne grăbim să considerăm că este corect
+                                doar să negăm condiția de mai sus. Asta ar însemna doar că nu este vorba despre o vocală. Trebuie să legăm
+                                cu && negarea condiției de mai sus de condiția să fie literă mică a alfabetului caracterul de testat.</p>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<!-- <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

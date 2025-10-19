@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>C++ Functions</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Sudo learn C++</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Acasă</a></li>
+						<li><a href="./functions.html" class="active">C++ Funcții</a></li>
+						<li><a href="index.html#two">Lecții</a></li>
+                        <li><a href="index.html#three">Quiz</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Funcții</h1>
+							<p>Sunt situații când dorim să folosim aceeași bucată de cod în mai multe locuri într-un program. În general
+                                limbajele de programare oferă facilități pentru a permite scrierea o singură dată a codului de repetat și
+                                invocarea sa de câte ori se dorește, eventual parametrizat. În limbajul C/C++ acest lucru se realizează prin
+                                intermediul funcțiilor.</p>
+                            <p>Odată cu dezvoltarea limbajului au apărut biblioteci cu mult cod scris deja și pe care programatorul îl poate
+                                folosi doar prin includerea în program a bibliotecii corespunzătoare (#include ...).</p>
+                            <p>Ne mai putem gândi la funcții ca la o extensie a setului de operatori. Astfel, dacă limbajul oferă deja semne
+                                pentru operațiile uzuale (+, -, % ...) cum am putea realiza alte operații precum radical, ridicare la putere etc,
+                                știind că nu avem un semn dedicat pentru asta? Răspunsul vine de la funcții.</p>
+                            <p>Funcțiile sunt așadar mici programe, cu datele lor, cu codul lor, care realizează o anume sarcină. În C/C++
+                                funcțiile se pot clasifica în mai multe moduri, dar în primul rând după valoarea returnată și anume, dacă
+                                returnează (oferă în afară direct prin ele) sau nu vreo valoare. Avem astfel:</p>
+                            <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li>Funcții operand – cele care returnează o valoare și astfel pot fi folosite (apelate) în cadrul unor
+                                        expresii;</li>
+                                    <li>Funcții procedurale – cele care nu returnează valori și se apelează ca instrucțiune separată;</li>
+                                </ul>
+                            </div>
+                            <h3>Funcții operand</h3>
+                            <p>Am spus că bibliotecile limbajului sunt din ce în ce mai ofertante cu cod scris deja și care apoi să poată fi
+                                folosit. Spunem așadar că dispunem în acest mod de funcții predefinite. În materialul de față nu ne
+                                concentrăm pe funcțiile predefinite ci pe modul în care scriem altele noi. Mereu va fi nevoie de asta, indiferent
+                                de cât de largă este oferta de funcții predefinite, apărând des situații particulare în orice program.</p>
+                            <p>Vom porni totuși de la un exemplu de funcție predefinită.</p>
+                            <pre><code>#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+int n;
+double aux;
+int main () {
+cin >> n;
+cout << sqrt(n) << "\n";
+cout << sqrt(10) << "\n";
+aux = sqrt(12 + sqrt(14));
+cout << 2 * sqrt(aux) << "\n";
+return 0;
+}</code></pre>
+                            <p>Dacă se citește de la tastatură 144, în fereastra de consolă va apărea: </p>
+                            <pre><code>144
+12
+3.16228
+3.98375
+                            </code></pre>
+                            <p>Observăm că sunt cinci apeluri ale codului care calculează radicalul, realizate acolo unde este permisă folosirea
+                                unei date reale (în cadrul unei expresii de atribuire, în cadrul unei instrcțiuni de afișare etc)</p>
+                            <p>Funcția sqrt poate fi așadar privită ca un operator unar (deoarece se aplică unei singure date) și care oferă o
+                                valoare de tip real. Din exemplul de mai sus putem trage deja câteva concluzii despre modul de apel al unei
+                                funcții (chiar dacă este predefinită – principiul este același), anume: trebuie cunoscut numele funcției, tipul
+                                valorii returnate precum și la ce fel de date se poate aplica. Datele scrise între paranteze la apel sunt așadar
+                                date transmise către funcție – un fel de date de intrare pentru aceasta – ele se numesc parametri, iar valoarea
+                                returnată este data de ieșire.</p>
+                            <p>Ce s-ar întâmpla dacă toate apelurile sqrt le-am înlocui cu apeluri sumaCifre. Adică, am scrie în cod
+                                sumaCifre peste tot pe unde apare sqrt:</p>
+                            <pre><code>#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+int n;
+double aux;
+int main () {
+cin >> n;
+cout << sumDigit(n) << "\n";
+cout << sumDigit(10) << "\n";
+aux = sumDigit(12 + sumDigit(14));
+cout << 2 * sumDigit(aux) << "\n";
+return 0;
+} </code></pre>
+                            <p>Dacă avem norocul să existe într-o bibliotecă dintre cele incluse vreo funcție predefinită cu acest nume, și care
+                                totodată să accepte un singur parametru și să returneze o valoare care poate fi folosită în expresiile de mai
+                                sus, atunci programul va rula. Dar cel mai probabil nu este așa deci vom primi eroare de compilare.</p>
+                            <p>Ce ar fi de făcut dacă dorim să facem să funcționeze ce este mai sus ? Adică în loc de radicali să facem suma
+                                cifrelor? Completăm codul ca mai jos (am adăugat înainte de main):</p>
+                            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int n;
+double aux;
+int sumDigit(int n) {
+int r;
+r = 0;
+while (n != 0) {
+    r += n % 10;
+    n /= 10;
+}
+return r;
+}
+int main () {
+cin >> n;
+cout << sumDigit(n) << "\n";
+cout << sumDigit(10) << "\n";
+aux = sumDigit(12 + sumDigit(14));
+cout << 2 * sumDigit(aux) << "\n";
+return 0;
+}</code></pre>
+                        <p>În acest caz lucrurile funcționează, iar dacă voi introduce 144, se vor afișa, câte una pe rând, valorile: 9, 1, 16.</p>
+                        <p>Observați că nu a mai fost necesară includerea bibliotecii cmath întrucât nu am mai folosit nimic de acolo.
+                            Totodată, dacă lăsam și acea linie de cod nu s-ar fi întâmplat nimic, doar că ar fi fost inutil și poate să crească
+                            și dimensiunea fișierului executabil.</p>
+                        <p>Așadar am scris o singură dată codul de calcul pentru sumei cifrelor unui număr (am definit funcția) și am
+                            apelat-o de cinci ori.
+                            </p>
+                        <p>Să ne concentrăm asupra modului de definire a funcției (am mai amintit și o să o mai facem, definierea se
+                            întâmplă o dată, este momentul construirii funcției, iar apelul, care se face de câte ori dorim, este momentul
+                            folosirii funcției).</p>
+                        <pre><code>int sumaCifre(int n) {
+int r;
+r = 0;
+while (n != 0) {
+r += n % 10;
+n /= 10;
+}
+return r;
+}</code></pre>
+                        <p>Acest lucru se face în afara funcției main (în general, în afara altei funcții) și respectă regula cerută de
+                            identificatori, de a fi definiți înaintea locului în care vor fi folosiți.
+                            </p>
+                        <div class="col-6 col-12-medium">
+                                <ul>
+                                    <li>Cuvântul int de la început indică tipul rezultatului funcției. Acest lucru este foarte important, apelul
+                                        putându-se apoi face doar acolo unde este permisă folosirea unei valori de acest tip.</li>
+                                    <li>Urmează sumaCifre, așadar un identificator care reprezintă numele funcției. Acesta va fi folosit la
+                                        apel.</li>
+                                    <li>Apoi sunt parantezele rotunde, semnul distinctiv principal al funcțiilor. Între ele se scriu parametrii, dar
+                                        vom vedea că putem avea și funcții fără parametri însă cu toate acestea parantezele rotunde sunt
+                                        obligatorii atât la definire cât și la apel.</li>
+                                    <li>Între parantezele rotunde se scriu parametrii funcției. Aceștia se indică sub forma tip valoare,
+                                        sepatați prin virgulă, dacă sunt mai mulți. Așa cum am mai amintit, prin intermediul lor se pot
+                                        transmite date către funcții. Vom vedea într-un subcapitol următor că avem și varianta ca prin
+                                        parametri să returnăm în afară și alte valori decât cea pe care o returnează funcția.
+                                        </li>
+                                </ul>
+                            </div>
+                        <p>Cele descrise mai sus formează antetul funcției. Cunoașterea acestuia este necesară celor care vor dori
+                            folosirea mai departe a funcției.
+                            </p>
+                        <p>Între acolade urmează codul efectiv al funcției, numit și corpul funcției, unde observăm:</p>
+                        <div class="col-6 col-12-medium">
+                            <ul>
+                                <li>Putem declara date locale, așa cum este r. Aceste date sunt vizibile doar în interiorul funcției și le
+                                    folosim în procesul de transformare a parametrilor în rezultatul dorit. Aceste date locale, imediat după
+                                    declarare nu se inițializează implicit cu 0 (ca în cazul datelor globale – cele declarate în afara altor
+                                    funcții). Am făcut separat inițializarea cu valoarea 0 pentru r.</li>
+                                <li>Avem apoi instrucțiunile prin care realizăm prelucrarea dorită. Acestea lucrează cu datele locale și cu
+                                    parametrii, dar vom vedea că pot apărea și date globale (acest lucru se evită de regulă).</li>
+                                <li>Avem și o instrucțiune separată, return. În general aceasta se folosește sub forma: return
+                                    expresie; Expresia trebuie să fie de tipul rezultatului funcției. Executarea lui return face ca să se
+                                    încheie imediat codul funcției și să se revină în programul apelant cu valoarea expresiei ca fiind cea
+                                    returnată de funcție.
+                                    </li>
+                            </ul>
+                        </div>
+                        <p>În termeni mai generali, modul de definire pentru o funcție este:</p>
+                        <pre><code>tip_rezultat nume_functie (lista de parametrii) {
+cod...
+}</code></pre>
+                        <p>Iată un alt exemplu după care vom trage mai multe concluzii..</p>
+                        <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int n, i;
+int prim(int n) {
+int i;
+if (n < 2)
+    return 0;
+for (i = 2;i <= n / i; i++)
+    if (n % i == 0)
+        return 0;
+return 1;
+}
+int main () {
+for (i = 1;i <= 100; i++)
+    if (prim(i) == 1)
+        cout << i << " ";
+return 0;
+} </code></pre>
+                        <p>Programul de mai sus afișează numerele naturale prime mai mici decât 100. Analizând definirea funcției prim
+                            observăm:</p>
+                        <div class="col-6 col-12-medium">
+                            <ul>
+                                <li>Nu a mai fost necesară folosirea unei variabile logice, ok, în care să notăm starea verificării: returnăm
+                                    direct 0 dacă găsim vreun divizor care face ca numărul să nu fie prim. Putem scrie return 1 la final,
+                                    în afara vreunei condiții întrucât nu s-ar ajunge acolo dacă s-ar fi găsit divizori.</li>
+                                <li>Observăm că scăpăm de tratarea cazurilor particulare cu numerele mai mici decât 2 care nu sunt
+                                    prime tot cu un return, la început. Așadar, putem evita să scriem restul de cod pe else, ceva
+                                    similar cu folosirea de break/continue în structurile repetitive.</li>
+                                <li>Apelul funcției îl facem ca parte a condiției de la if, lucru care este în regulă pentru că se compară
+                                    două numere, unul fiind valoarea de tip int returnată de funcție</li>
+                                <li>Funcția are o variabilă locală numită i, iar apelul său se face într-un for care are un contor numit tot
+                                    i. Ce se întâmplă de fapt ? Lucrurile sunt în regulă, variabila globală i nu mai este vizibilă în funcție
+                                    atâta timp cât în intrior am declarat alta cu același nume. În funcție se va folosi variabila i locală. Dacă
+                                    am fi omis linia int i; din interiorul funcției nu am fi primit eroare de complilare întrucât i folosit în
+                                    funcție ar fi fost chiar variabila globală, lucrurile însă s-ar fi stricat, variabila globală i ajungând să fie
+                                    contor în două foruri care prin apelul funcției ajung unul în altul.</li>
+                            </ul>
+                        </div>
+                        <p>Cu toare că nu am discutat în detaliu, am foloait deja apeluri ale funcției. Acum este momentul să spunem mai
+                            clar cum se face asta:</p>
+                        <div class="col-6 col-12-medium">
+                            <ul>
+                                <li>Apelul apare în orice loc unde poate apărea o dată de tipul rezultatului funcției.</li>
+                                <li>La apel se indică numele funcției iar între paranteze rotunde parametii de la apel. Acestea sunt expresii
+                                    de tipul datei corespunătoare de la definirea funcției, valorile acestor expresii evaluându-se și fiind
+                                    valorile inițiale ale parametrilor în corpul funcției.</li>
+                            </ul>
+                        </div>
+                        <h3>Exerciții și probleme rezolvate</h3>
+                        <h4>1. Fie următoarea funcție:</h4>
+                        <pre><code>int f(int n) {
+if (n % 2 == 0)
+    return 2 * n;
+}</code></pre>
+                        <h4>Care este rezultatul apelului f(4) ?</h4>
+                        <h4>Care este rezultatul apelului f(3) ?</h4>
+                        <p>Soluție:</p>
+                        <p>La subpunctul a) în corpul funcției se va executa return cu valoarea 8, deci acesta este răspunsul. În cazul
+                            subpunctului b) nu se execută return în corpul funcției, deci în locul unde programul apelant va căuta valoarea
+                            returnată nu se pune nimic și, cum am văzut mai sus (în tabelul cu explicarea modelului de memorie de la
+                            exemplul cu funcția cmmdc), acolo zona este neinițializată, așadar ne putem aștepta la orice rezultat. Trebuie
+                            avut deci grijă ca în cazul funcțiilor operand să se returneze mereu ceva.</p>
+                        <h4>2. Scrieți o funcție care primește ca parametru un număr natural n și care returnează cea mai mare
+                            valoare care se poate obține cu cifrele lui n așezate într-o ordine convenabilă.</h4>
+                        <p>Soluții:</p>
+                        <pre><code>int cmmnr(int n) {
+int v[12];
+int k = 0;
+while (n != 0) {
+    k++;
+    v[k] = n%10;
+    n /= 10;
+}
+for (int i = 1;i < k; i++)
+    for (int j = i + 1;j <= k; j++)
+        if (v[i] > v[j]) {
+            int aux = v[i];
+            v[i] = v[j];
+            v[j] = aux;
+}
+int r = 0;
+for (int i = k;i >= 1; i--)
+    r = r * 10 + v[i];
+return r;
+}</code></pre>
+                        <p>Strategia urmată mai sus este de a pune toate cifrele într-un vector, de a-l sorta descrescător și de a construi
+                            valoarea de returnat cu cifrele în această ordine.</p>
+                        <p>Observați că putem declara un vector local unei funcții, acesta alocându-se în memorie în momentul apelului
+                            unei funcții ca și celelalte variabile locale. De asemenea, acesta eliberează memoria în momentul terminării
+                            executării funcției.</p>
+                        <pre><code>int cmmnr(int n) {
+int f[10];
+for (int i = 0;i <= 9; i++)
+    f[i] = 0;
+    while (n != 0) {
+        f[n % 10] ++;
+        n /= 10;
+}
+int r = 0;
+for (int i = 9;i >= 0; i--)
+    while (f[i] != 0) {
+        r = r * 10 + i;
+        f[i]--;
+}
+return r;
+}</code></pre>
+                        <p>Soluția de mai sus folosește un vector de frecvență pentru a sorta cifrele numărului de procesat.După cum
+                            vedem, putem declara un vector local unei funcții. Întrucât în componentele acestuia contorizăm numărul de
+                            apariții pentru fiecare cifră, este esențial să-i inițializăm valorile cu 0.</p>
+                        <h3>Funcții procedurale</h3>
+                        <p>Am clasificat la început funcțiile în operand și procedurale. Cele operand returnează o valoare și apelul lor se
+                            face în expresii. Cele procedurale nu returnează o valoare. Atunci la ce ne sunt utile ? Și cum le folosim?</p>
+                        <p>Iată un exemplu:</p>
+                        <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int n, m;
+void afiseaza(int n, int m) {
+cout << n << "/" << m << "\n";
+}
+int main () {
+cin >> n >> m; /// input 26 20
+afiseaza(n, m);
+afiseaza(12, 34);
+afiseaza(2 * 7, 4 * 9);
+return 0;
+}</code></pre>
+                        <p>Se va afișa::</p>
+                        <pre><code>26 / 20
+12 / 34
+14 / 36</code></pre>
+                        <p>Ne putem imagina că dorim să afișăm într-un mod relevant o fracție. Funcția de mai sus este ceea ce ne dorim.
+                            Chiar dacă nu returnează o valoare, funcția procedurală are scopul ei, în acest caz fiind acela de a tipări ceva
+                            pe ecran, într-un anumit format.</p>
+                        <p>Mai tot ce am discutat la funcțiile operand este valabil și aici. Iată însă și diferențele:</p>
+                        <p>La definire, în loc de tipul rezultatului se scrie void. Este un cuvânt cheie care aici indică faptul că funcția este
+                            procedurală, nu returnează valoare.</p>
+                        <div class="col-6 col-12-medium">
+                            <ul>
+                                <li>Apelul unei astfel de funcții se face ca instrucțiune separată, cum se poate vedea mai sus, și nu în
+                                    cadrul unei expresii.</li>
+                                <li>Instrucțiunea return poate fi prezentă în funcțiile procedurale, dar fără a fi urmată de o expresie, ci
+                                    doar de caracterul punct și virgulă. Dacă se ajunge la executarea ei funcția se încheie imediat</li>
+                            </ul>
+                        </div>
+                        <p>O situație des întâlnită de utilizare a funcțiilor procedurale este de a organiza codul pe secțiuni. De exemplu, în
+                            concursuri, găsim de multe ori funcția main scrisă astfel:</p>
+                        <pre><code>int main() {
+read();
+solve();
+write();
+}</code></pre>
+                        <p>Iată un program complet:</p>
+                        <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int n, v[100];
+void read() {
+cin >> n;
+for (int i = 1;i <= n; i++)
+    cin>>v[i];
+}
+void solve() {
+for (int i = 1, j = n; i < j; i++, j--) {
+    int aux = v[i];
+    v[i] = v[j];
+    v[j] = aux;
+}
+}
+void write() {
+for (int i = 1;i <= n; i++)
+    cout << v[i] << " ";
+cout << "\n";
+}
+int main () {
+    read();
+    solve();
+    write();
+    return 0;
+}</code></pre>
+                        <p>Programul de mai sus cere de la tastatură dimensiunea și elementee unui vector, îl oglindește, apoi îl afișează
+                            pe ecran în noua configurație. Funcțiile nu au parametri, ele lucrănd cu vectorul v și cu numărul de elemente n
+                            ca variabile globale.</p>
+                        <h3>Funcții cu parametri transmiși prin referință</h3>
+                        <p>Să analizăm următorul program:</p>
+                        <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int n, m;
+void change(int a, int b) {
+    int aux;
+    aux = a;
+    a = b;
+    b = aux;
+}
+int main () {
+    n = 2;
+    m = 3;
+    change(n, m);
+    cout << n << " " << m;
+    return 0;
+}</code></pre>
+                        <p>Cand sunt întrebați ce se va afișa, foarte mulți oameni se grăbesc și afirmă că 3 și apoi 2. Nu este așa, se vor
+                            tipări 2 și 3, în această ordine și separate prin spațiu întrucât interschimbarea se face între variabilele a și b,
+                            care, după cum am analizat mai sus se alocă în stivă și există doar pe durata executării funcției. Modificarea
+                            lor în funcție nu are niciun efect asupra lui n și m.</p>
+                        <p>Modul de transfer al parametrilor către funcții folosit de la începutul capitolului până acum poatrtă numele de
+                            transmitere a parametrilor prin valoare</p>
+                        <p>Mai dispunem de un instrument pe care îl vom explica mai departe: transmiterea parametrilor prin referință.
+                            Aceștia sunt parametrii care sunt scriși precedați de caracterul & la definirea funcției. Vom modifica, pentru
+                            exemplul anterior ambii parametrii indicând că îi transmitem prin referință.</p>
+                        <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int n, m;
+void change(int &a, int &b) {
+    int aux;
+    aux = a;
+    a = b;
+    b = aux;
+}
+int main () {
+    n = 2;
+    m = 3;
+    change(n, m);
+cout << n << " " << m;
+return 0;
+} </code></pre>
+                        <p>La apelul funcției, a și b nu vor fi variabile noi ci ele vor fi un fel de porecle (aliasuri) pentru parametii care sunt
+                            în dreptul lor la apel. Așadar, scrierea a în interiorul funcției face să se lucreze direct cu valoarea din zona de
+                            memorie asociată lui n, tot așa folosirea lui b în funcție face să lucrăm direct cu m</p>
+                        <p>Evident, atribuiri în funcție spre a și b fac să se modifice direct n și m. În acest caz subprogramul va
+                            interschimba deci valorile celor două variabile globale, ele devenind după apel: n cu valoarea 3 și m cu
+                            valoarea 2.</p>
+                        <p>Consecință a faptului că parametrilor referință trebuie să li se dea o zonă de memorie în care să își păstreze
+                            valoarea este că la apel, în dreprul unui parametru referință, trebuie scrisă obligatoriu o variabilă și nu alt fel
+                            de expresie (precum constante sau expresii ce conțin și operatori).</p>
+                        <p>Un alt lucru important de care să ținem cont: parametrii transmiși prin referință reprezentând de fapt zonele
+                            de memorie ale unor variabile din afara funcției, ei au ca valoare inițială chiar valoarea acelei variabile în
+                            momentul apelului. Deci daca dorim să calculăm independent în ei o valoare în funcție, trebuie să îi inițializăm
+                            cu cât ne convine</p>
+                        <p>Acum putem spune că parametrii transmiși prin valoare reprezintă date de intrare pentru funcții iar cei
+                            transmiși prin referință sunt atât date de intrare cât și date de ieșire.
+                            </p>
+                        <h3>Exerciții și probleme rezolvate</h3>
+                        <h4>1. Care este efectul următorului program?</h4>
+                        <pre><code>#include &lt;iostream&gt;
+using namespace std;
+int n;
+void change(int &a, int &b) {
+    int aux;
+    aux = a;
+    a = b;
+    b = aux;
+}
+int main () {
+    n = 2;
+    change(n, 3);
+    cout << n;
+return 0; } </code></pre>
+                        <p>Răspunsul este: eroare de compilare. Acest lucru apare din cauza apelului cu constanta 3 în dreptul
+                            parametrului referință a.</p>
+                        <h4>2. Scrieți o funcție care primește printr-un parametru un număr natural și prin alți doi patametri
+                            returnează cifra maximă și cifra minimă ale numărului primit.</h4>
+                        <pre><code>void calcul(int n, int &maxi, int &mini) {
+if (n == 0) {
+    maxi = mini = 0;
+    return;
+}
+maxi = 0;
+mini = 9;
+while (n != 0) {
+    if (n % 10 > maxi)
+    maxi = n % 10;
+    if (n % 10 < mini)
+    mini = n % 10;
+    n /= 10;
+    }
+}</code></pre>
+                        <p>Acesta este exemplul prin care observăm cum putem returna două valori calculate într-o funcție. Mai
+                            observăm și folosirea lui return (fără expresie în cazul funcțiilor void) pentru a trata mai compact cazul
+                            particular al numărului 0.</p>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<!-- <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

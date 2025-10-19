@@ -1,0 +1,466 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>C++ Functions</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Sudo learn C++</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="./recursion.html" class="active">C++ Recursivitate</a></li>
+						<li><a href="index.html#two">Lectii</a></li>
+                        <li><a href="index.html#three">Quiz</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Funcții recursive</h1>
+							<h2>Funcții recursive procedurale</h2>
+                            <p>Să analizăm următorul program:</p>
+                            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+void show(int n) {
+    if (n != 0) {
+        cout << n;
+display(n - 1);
+    }
+}
+int main () {
+    display(3);
+    return 0;
+}</code></pre>
+                            <p>Observăm că la definirea funcției, în corpul său, ea se autoapelează. Acesta este principalul mod în care se
+								realizează recusivitatea. Vom vedea ulterior și alt mod, acela când o funcție ajunge să se autoapeleze nu direct
+								ci prin intermediul altei funcții (recursivitate indirectă).</p>
+                            <p>Să analizăm efectul acestui program. Majoritatea oamenilor dau răspunsul corect: se afișează 321.</p>
+                            <p>Analizăm și exemplul următor:</p>
+                            <pre><code>void show(int n) {
+if (n != 0) {
+    cout << n;
+    display(n - 1);
+    cout << n;
+    }
+}</code></pre>
+                            <p>Rămâne contextul de mai sus, am modificat doar funcția, adăugând o instrucțiune de afișare după autoapel.</p>
+                            <p>În acest caz, majoritatea oamenilor nu dau răspunsul corect :D . Iată în continuare o analiză detaliată, pas cu
+								pas, a ceea ce se întâmplă:</p>
+                            <div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Ce se întîmplă</th>
+													<th>Memoria</th>
+													<th>Ecranul</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Se apelează funcția cu parametrul 3. Ca la orice
+														începere de apel de funcție, se alocă mai întâi
+														memorie pentru datele locale, adică o variabilă
+														numită n, cu valoarea 3, apoi se începe executarea
+														instrucțiunilor. În acest caz condiția de la if este
+														adevărată așa că se intră pe prima ramură, s afișează 3, apoi urmează instrucțiunea de apel de
+														funcție (autoapel).</td>
+													<td>
+                                                        <div class="table-wrapper">
+                                                            <table class="alt">
+                                                                <tbody>
+																	<tr>
+																		<td>Apel afisare(3)</td>
+																		<td>n</td>
+																		<td>3</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+													<td>3</td>
+												</tr>
+												<tr>
+													<td>Acum se face iarăși ceea ce necesită un apel de
+														funcție: se alocă memorie pentru datele locale, apoi se
+														începe executarea codului. Observați din desenul
+														alăturat că memoria alocată pentru datele locale ale
+														apelului anterior nu s-a eliberat deoarece apelul
+														afisare(3) nu s-a încheiat încă. Și în acest caz
+														este adevărată expresia de la if așa că se intră pe
+														prima ramură, se afișează 2 și urmează autoapelul
+														afisare(1).</td>
+													<td>
+														<div class="table-wrapper">
+                                                            <table class="alt">
+                                                                <tbody>
+																	<tr>
+																		<td>Apel afisare(2)</td>
+																		<td>n</td>
+																		<td>2</td>
+																	</tr>
+																	<tr>
+																		<td>Apel afisare(3)</td>
+																		<td>n</td>
+																		<td>3</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+													</td>
+													<td>32</td>
+												</tr>
+												<tr>
+													<td>Ținând cont de cele explicate mai sus, memoria arată
+														ca în tabelul alăturat, se afișează 1, apoi se face iarăși
+														autoapel</td>
+													<td>
+														<div class="table-wrapper">
+                                                            <table class="alt">
+                                                                <tbody>
+																	<tr>
+																		<td>Apel afisare(1)</td>
+																		<td>n</td>
+																		<td>1</td>
+																	</tr>
+																	<tr>
+																		<td>Apel afisare(2)</td>
+																		<td>n</td>
+																		<td>2</td>
+																	</tr>
+																	<tr>
+																		<td>Apel afisare(3)</td>
+																		<td>n</td>
+																		<td>3</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+													</td>
+													<td>321</td>
+												</tr>
+												<tr>
+													<td>Apelul afisare(0), după ce își alocă memorie
+														pentru datele locale (un n cu valoarea 0), începe să își
+														execute și el codul. Acum condiția de la if este falsă
+														și s-ar merge pe else. Dacă ar fi fost ceva de
+														executat acolo s-ar face acum, însă în exemplul nostru
+														nu avem else, așa că se ajunge la acolada de final
+														pentru corpul funcției și aceasta se termină. Știm că
+														atunci când o funcție se termină ea își eliberează
+														memoria alocată la începutul apelului.</td>
+													<td>
+														<div class="table-wrapper">
+														<table class="alt">
+															<tbody>
+																<tr>
+																	<td>Apel afisare(0)</td>
+																	<td>n</td>
+																	<td>0</td>
+																</tr>
+																<tr>
+																	<td>Apel afisare(1)</td>
+																	<td>n</td>
+																	<td>1</td>
+																</tr>
+																<tr>
+																	<td>Apel afisare(2)</td>
+																	<td>n</td>
+																	<td>2</td>
+																</tr>
+																<tr>
+																	<td>Apel afisare(3)</td>
+																	<td>n</td>
+																	<td>3</td>
+																</tr>
+															</tbody>
+														</table>
+														</div>
+													</td>
+													<td>321</td>
+												</tr>
+												<tr>
+													<td>Dar se termină doar apelul afisare(0), nu toate
+														celelalte, deci memoria va arăta ca alăturat. Apelul
+														afisare(0), care tocmai s-a terminat, a apărut în
+														cadrul apelului afisare(1) care încă nu s-a
+														încheiat și care își va continua acum executarea cu
+														instrucțiunea de după apelul tocmai terminat
+														afisare(0). Aceasta este a doua instrucțiune
+														cout << n. Dar cât este acum n ? Răspuns:1 deoarece
+														suntem înapoi în apelul afisare(1). De altfel,
+														vedem asta și în tabelul alăturat uitându-ne în vârful
+														stivei. Așadar se afișează pe ecran 1.</td>
+													<td>
+														<div class="table-wrapper">
+                                                            <table class="alt">
+                                                                <tbody>
+																	<tr>
+																		<td>Apel afisare(1)</td>
+																		<td>n</td>
+																		<td>1</td>
+																	</tr>
+																	<tr>
+																		<td>Apel afisare(2)</td>
+																		<td>n</td>
+																		<td>2</td>
+																	</tr>
+																	<tr>
+																		<td>Apel afisare(3)</td>
+																		<td>n</td>
+																		<td>3</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+													</td>
+													<td>3211</td>
+												</tr>
+												<tr>
+													<td>După această instrucțiune de tipărire se ajunge la
+														acolada de final a instrucțiunii if din prima ramură a
+														apelului afisare(1). Astfel se termină if și cum
+														după el nu mai este altceva între acoladele funcției, se
+														termină și acest apel al funcției. Deci, se eliberează iar
+														memoria alocată la acest apel, adică din vârful stivei,
+														aceasta ajungând să arate ca în tabelul alătural.
+														Am revenit deci după locul în care s-a făcut apelul
+														tocmai încheiat afisare(1). Adică, la
+														instrucțiunea a doua cout << n din apelul
+														afisare(1). Se tipărește așadar pe ecran 2, apoi,
+														ca și anterior, apelul afisare(2) se termină.
+														</td>
+													<td>
+														<div class="table-wrapper">
+                                                            <table class="alt">
+                                                                <tbody>
+																	<tr>
+																		<td>Apel afisare(2)</td>
+																		<td>n</td>
+																		<td>2</td>
+																	</tr>
+																	<tr>
+																		<td>Apel afisare(3)</td>
+																		<td>n</td>
+																		<td>3</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+													</td>
+													<td>32112</td>
+												</tr>
+												<tr>
+													<td>Ținând cont de explicațiile de mai sus, acum se ajunge
+														să se afișeze 3, din apelul afisare(3). Se încheie și apelul afisare(3), odată cu el și
+														executarea funcției recursive, iar stiva ajunge goală, la
+														fel ca la început. </td>
+													<td>
+														<div class="table-wrapper">
+                                                            <table class="alt">
+                                                                <tbody>
+																	<tr>
+																		<td>Apel afisare(3)</td>
+																		<td>n</td>
+																		<td>3</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+													</td>
+													<td>321123</td>
+												</tr>
+											</tbody>
+										</table>
+							</div>
+							<p>Se observă așadar o simetrie, adică întâi se afișează 321, apoi 123, acestea fiind valorile parametrilor care
+								ajung în stivă, prima dată în ordinea de parcurgere, apoi în ordine inversă.
+								Vom adăuga funcției și ramura else, unde tipărim pe n. Adică:</p>
+							<pre><code>void afisare(int n) {
+	if (n!=0) {
+		cout << n;
+		display(n-1);
+		cout << n;
+	} else
+		cout << n;
+}</code></pre>
+							<p>Ținând cont de analiza detaliată de mai sus, se ajunge să se tipărească și pe ramura else ceva, adică 0. Acest
+								lucru se realizează după ce s-a terminat urcarea în stivă și înainte să se înceapă coborârea, adică după ce s-au
+								parcurs parametrii într-o ordine și înainte să se înceapă parcurgerea lor invers. Astfel avem: 3210123.</p>
+							<p><b>Putem trage de pe acum concluzia: prin recursivitate avem posibilitatea parcurgerii unui set de date de două
+								ori: o dată prin instrucțiunile de pe ramura cu autoapelul, aflate înainte de autoapel, apoi prin cele de pe
+								ramura cu autoapelul aflate după autoapel, în ordine inversă a valorilor parametrilor față de prima
+								parcurgere. Între cele două parcurgeri se execută o singură dată ce se află pe ramura else.</b></p>
+							<p>Înainte de a trage și alte concluzii, să analizăm ce se întâmplă și în cazul când funcția arată ca mai jos:</p>
+							<pre><code>void afisare(int n) {
+	cout << n;
+	display(n-1);
+}</code></pre>
+							<p><b>Se tipărește: 3210 - 1 - 2 - 3 - 4 - 5 ...</b></p>
+							<p>Majoritatea oamenilor spun că se ciclează infinit și într-un fel este adevărat. La o analiză mai atentă, ținând
+								cont de faptul că la fiecate autoapel se alocă memorie nouă în stivă, și observând că niciodată vreun autoapel
+								nu se termină, tragem căncluzia că niciodată nu se eliberează memorie și se tot alocă. Atunci cănd spațiul
+								rezervat zonei de stivă se epuizează programul se termină cu eroare la executare (Stack overflow error).</p>
+							<p>Trebuie deci avut grijă să condiționăm autoapelul și să ne asigurăm că ajungem cândva încât parametrii fac să
+								nu se mai execute autoapel, moment în care începe întoarcerea, coborârera în stivă.</p>
+							<p>Există chiar o teoremă care afirmă că oricărei scrieri recursive îi corespunde una repetitivă și reciproc</p>
+							<p><b>Astfel, putem spune că, la modul general, o funcție recursivă este de forma</b></p>
+							<pre><code>functie (parametrii) {
+if (conditie) {
+	instructiuni 1
+	functie (valorile urmatoare ale parametrilor)
+	Instructiuni 2
+} else
+	Instructiuni 3
+}</code></pre>
+							<ul>
+								<b>
+								<li>Se execută așadar de mai multe ori numai instrucțiuni1, cât timp valorile parametrilor fac
+									condiția adevărată.</li>
+								<li>Se execută apoi, o singură dată instrucțiuni3, în momentul în care valorile parametrilor fac
+									condiția falsă.</li>
+								<li>Se execută apoi instrucțiuni2, de același număr de ori ca și instrucțiuni1, dar în ordine
+									inversă a valorilor parametrilor ca în cazul executărilor lui instrucțiuni1.</li>
+								</b>	
+							</ul>
+							<p>Altfel spus, liniarizând, avem:</p>
+							<pre><code>Instrucțiuni 1
+Instrucțiuni 1
+...
+Instrucțiuni 1
+Instrucțiuni 3
+Instrucțiuni 2
+Instrucțiuni 2
+...
+Instrucțiuni 2</code></pre>
+							<p>Am prezentat elementele cheie de la o funcție recursivă: faptul că autoapelul trebuie condiționat, că putem
+								pune instruțiuni pe ramura cu autoapelul (înainte și după acesta) sau pe ramura cealaltă. Putem însă să
+								adăugăm instrucțiuni chiar înaintea deciziei sau după ea. Un bun exercițiu în înțelegerea recursivității este să
+								vă gândiți acum ce efect are un apel afisare(3) pentru funcția de mai jos:</p>
+							<pre><code>void afisare(int n) {
+cout << n;
+if (n != 0) {
+cout << n; //2
+afisare(n - 1);
+cout << n;//3
+} else
+cout << n; //4
+cout << n; //5
+} </code></pre>
+							<p>Efectul este afișarea următorului șir de valori: 3 3 2 2 1 1 0 0 0 1 1 2 2 3 3.</p>
+							<p>Așadar, instrucțiunea 1 fiind înainte de if ea se va executa la fiecare intrare în funcție deci și în cazul în care se
+								continuă pe ramura cu autoapelul dar și în cazul când se merge pe cealaltă ramură. Așadar, dacă cea de
+								dinainte de autoapel de pe ramura cu autoapelul se execută de trei ori, cea din fața lui if se execută odată în
+								plus. Valorile îngroșate sunt cele afișate de ea: <b>3</b> 3 <b>2</b> 2 <b>1</b> 1 <b>0</b> 0 0 1 1 2 2 3 3.</p>
+							<p>Simetric, instrucțiunea 5 se execută la fiecare ieșire din funcție, indiferent de ramura pe care se executase cod,
+								deci se execută tot de 4 ori. Valorile îngroșate sunt cele afișate de ea: 3 3 2 2 1 1 0 0 <b>0</b> 1 <b>1</b> 2 <b>2</b> 3 <b>3</b>.</p>
+							<h3>Exerciții și probleme rezolvate</h3>
+							<h4>1. Scrieți o funcție recursivă care afișează cifrele unui număr în ordinea în care apar, separate prin câte un
+								spațiu. De exemplu, un apel f(352) va avea ca efect afișarea: 3 5 2.</h4>
+							<pre><code>void f(int n) {
+	if (n != 0) {
+		f(n / 10);
+	cout << n % 10 << " ";
+	}
+}</code></pre>
+							<p>Traversarea cifră cu cifră se face prin autoapel cu valoarea obținută eliminând ultima cifră. Întrucât algoritmul
+								standard de parcurgere a cifrelor unui număr le obține de la dreapta, noi decidem să afișăm după autoapel
+								cifra curentă (ultima), tipărindu-le astfel în ordinea de la stânga la dreapta</p>
+							<h4>2. Scrieți o funcție recursivă cu parametru un număr n care afișează mai întâi descrescător valorile pare
+								mai mici sau egale cu n, pe același rând, separate prin câte un spațiu, apoi afișează crescător, pe
+								rândul următor valorile impare mai mici sau egale decât n. Se tipăresc doar valorile nautale nenule. De
+								exemplu, un apel f(8) ar trebui să aibă efectul:</h4>
+							<pre>8 6 4 2
+1 3 5 7</pre>
+							<pre><code>void f(int n) {
+if (n != 0) {
+	if (n % 2 == 0)
+		cout << n << " ";
+	f(n - 1);
+	if (n % 2 != 0)
+		cout << n << " ";
+} else
+	cout << "\n";
+}
+</code></pre>
+							<p>Noi traversăm mai întâi descrescător numerele de la n la 1 dar decidem să le afișăm doar pe cele pare, cu
+								spații între ele. La revenire le afișam pe cele impare, tot cu spațiu între ele, deci le obținem în ordine
+								crescătoare. Pe ramura else, al cărei cod se execută o singură dată, la mijloc, vom tipări un enter.</p>
+							<h3>3. Considerăm următoarea secvență de cod:</h3>
+							<pre><code>cin >> n;
+i = 1;
+while (i <= n) {
+	cout << i;
+	i++;
+}</code></pre>
+							<p>Scrieți un program care rezlizează același lucru printr-o funcție recursivă.</p>
+							<pre><code>#include &lt;iostream&gt;
+using namespace std;
+int n;
+void f(int i) {
+	if (i <= n){
+	cout << i;
+	f(i + 1);
+	}
+}
+int main () {
+	cin >> n;
+	f(1);
+return 0;
+}</code></pre>
+							<p>Scopul acestui exercițiu este acela de a arăta un mod de “traducere” dintr-un cod repetitiv, mai ușor de scris, în
+								unul recursiv.
+								</p>
+							<p>Observăm:</p>
+							<ul>
+								<li>Contorul repetiției - i - este parametru la recursivitate (variabila a cărei valori valori se modifică de la
+									un autoapel la altul);</li>
+								<li>Modul de actualizare pentru contor este în legătură cu modul de autoapel: i++  <pre>i++ f(i + 1);</pre></li>
+								<li>Condiția de la repetiție este aceeași cu cea de la condiționarea autoapelului;</li>
+								<li>Inițializarea contorului (i = 1) are drept corespondent modul de apel inițial ( <b> f(1) </b>).</li>
+								<li>Instruțiunea subordonată repetiției este cea care se dorește a se executa la fiecare autoapel
+									(<b>cout << i</b>).</li>
+							</ul>
+							<b><p>În momentul predării recursivității oamenii își pun întrebarea: de ce trebuie să mai învăț cum fac recursiv dacă
+								am varianta repetitivă echivalentă? În plus, se observă ca la recursivitate se consumă și oarecare timp cu
+								alocarea/eliberarea de memorie în stivă</p></b>
+							<p><b>Motivul principal (și decisiv) pentru care este extrem de importantă recursivitatea este dat de ușurința cu care
+								putem trata problemele ce necesită structuri neliniare precum arbori, grafuri. Codul de a vizita repetitiv astfel
+								de structuri este infinit mai dificil de scris decât prin recursivitate.
+								</b></p>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<!-- <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
